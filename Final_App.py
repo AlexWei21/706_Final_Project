@@ -33,10 +33,12 @@ df = load_data()
 subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
-    x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m')),
+    x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     y='Daily_Deaths:Q',
     # color= alt.Color("Rate", title = "Log of Motality rate per 100k", scale=alt.Scale(type='log', domain=(0.005, 1), clamp = True)),
     # tooltip=[""]
+)
+
 )
 
 st.altair_chart(line, use_container_width=True)
