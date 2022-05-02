@@ -20,7 +20,7 @@ def load_data():
 df = load_data()
 # df
 
-subset = df[df['Country/Region'] == US]
+subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
     x = 'Date',
