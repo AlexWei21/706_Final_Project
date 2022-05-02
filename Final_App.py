@@ -18,16 +18,15 @@ def load_data():
 
     df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
+    df['Vaccinated_Percentage'] = df['People_fully_vaccinated'] / df['Population']
 
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
-    Case_Death = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Daily_Death_per_million', 'Daily_Cases_per_million']]
+    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'People_fully_vaccinated']]
 
-    Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
+    Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
-    Case_Death = Case_Death.melt(['Country/Region', 'Date'], var_name='Type', value_name = 'Number')  
-
-    return Case_Death
+    return Vac_Death_df
 
 
 df = load_data()
@@ -36,9 +35,9 @@ subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
     x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    y='Number:Q',
+    y='Daily_Deaths:Q',
     color= alt.Color("Type"),
-    tooltip=['Date','Number']
+    tooltip=['Date','Daily_Deaths']
 )
 
 
