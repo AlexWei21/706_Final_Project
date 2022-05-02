@@ -28,7 +28,7 @@ st.write('## Cases and Death of Covid 19 with Vaccine Data')
 
 subset = df[df['Country/Region'] == 'US']
 
-line = alt.Chart(subset).mark_dot().encode(
+line = alt.Chart(subset).mark_point().encode(
     x = 'Date:T',
     y = 'Daily_Death:Q'
     )
