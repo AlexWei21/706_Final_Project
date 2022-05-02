@@ -22,7 +22,7 @@ def load_data():
 
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
-    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'People_fully_vaccinated']]
+    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', '', 'People_fully_vaccinated']]
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
@@ -41,7 +41,7 @@ base = alt.Chart(subset).encode(
 
 line1 = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Deaths:Q'),
+    alt.Y('Daily_Deaths:Q', scale=alt.Scale(type='log')),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Deaths']
 )
