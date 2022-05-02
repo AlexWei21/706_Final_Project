@@ -29,12 +29,13 @@ def load_data():
 
 
 df = load_data()
+print(df)
 
 subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
     x='Date:T',
-    y='Daily_Deaths',
+    y='Daily_Deaths:Q',
     # color= alt.Color("Rate", title = "Log of Motality rate per 100k", scale=alt.Scale(type='log', domain=(0.005, 1), clamp = True)),
     # tooltip=[""]
 )
