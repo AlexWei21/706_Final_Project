@@ -46,7 +46,7 @@ continent = st.multiselect('Continent',[
     'Oceania'
     ]
 )
-subset = subset[subset['Continent'] == 'continent']
+subset = subset[subset['Continent'] == continent]
 
 base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
