@@ -23,8 +23,8 @@ df = load_data()
 subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
-    x = 'Date',
-    y = 'Deaths'
+    x = 'Date:t',
+    y = 'Deaths:Q'
     )
     
 
