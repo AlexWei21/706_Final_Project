@@ -22,9 +22,11 @@ def load_data():
 
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
-    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage']]
+    df.loc[df['Country/Region'] == 'US', 'Continent'] = 'North America'
 
-    Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
+    Vac_Death_df = df[['Country/Region', 'Continent', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage']]
+
+    Vac_Death_df = Vac_Death_df.groupby(['Country/Region','Continent', pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
     # Vac_Death_df = Vac_Death_df.melt(['Country/Region', 'Date'], var_name = 'Type', value_name = 'Number')
 
@@ -32,6 +34,7 @@ def load_data():
 
 
 df = load_data()
+
 
 subset = df[df['Country/Region'] == 'US']
 
