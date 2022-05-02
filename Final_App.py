@@ -1,3 +1,4 @@
+from curses.ascii import US
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -17,4 +18,14 @@ def load_data():
 
 
 df = load_data()
-df.hist()
+# df
+
+subset = df[df['Country/Region'] == US]
+
+line = alt.Chart(subset).mark_line().encode(
+    x = 'Date',
+    y = 'Deaths'
+    )
+    
+
+st.altair_chart(line, use_container_width=True)
