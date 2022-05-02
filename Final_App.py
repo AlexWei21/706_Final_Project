@@ -22,7 +22,7 @@ def load_data():
 
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
-    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'People_fully_vaccinated']]
+    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'People_fully_vaccinated']]
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
@@ -53,7 +53,15 @@ line2 = base.mark_line().encode(
     tooltip=['Date','People_fully_vaccinated']
 )
 
-combine = alt.layer(line1,line2).resolve_scale(
+line3 = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Cases:Q',scale=alt.Scale(type='log', domainMin=0.005, clamp = True)),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Cases']
+)
+
+
+combine = alt.layer(line1,line2,line3).resolve_scale(
     y = 'independent'
 )
 
