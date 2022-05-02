@@ -31,7 +31,7 @@ subset = df[df['Country/Region'] == 'US']
 line = alt.Chart(subset).mark_dot().encode(
     x = 'Date:T',
     y = 'Daily_Death:Q'
-    ).transform_loess('Date','Daily_Death').mark_line()
+    )
     
 
 st.altair_chart(line, use_container_width=True)
