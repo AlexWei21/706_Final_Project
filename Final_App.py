@@ -19,11 +19,13 @@ def load_data():
     df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
 
-    df['Date'] = pd.to_datetime(df['Date'])
+    df['Date'] = pd.to_datetime(df['Date'], format="%m/%d/%Y")
 
     Case_Death = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Daily_Death_per_million', 'Daily_Cases_per_million']]
 
     Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()
+
+
 
     return Case_Death
 
