@@ -39,6 +39,5 @@ line = alt.Chart(subset).mark_line().encode(
     # tooltip=[""]
 )
 
-)
 
 st.altair_chart(line, use_container_width=True)
