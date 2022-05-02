@@ -17,4 +17,4 @@ def load_data():
 
 
 df = load_data()
-df
+df.hist(column='Population_Density')
