@@ -26,6 +26,8 @@ def load_data():
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
+    Vac_Death_df = Vac_Death_df.melt(['Country/Region', 'Date'], var_name = 'Type', value_name = 'Number')
+
     return Vac_Death_df
 
 
@@ -37,7 +39,7 @@ line = alt.Chart(subset).mark_line().encode(
     x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     y='Daily_Deaths:Q',
     color= alt.Color("Type"),
-    tooltip=['Date','Daily_Deaths']
+    tooltip=['Date','Number']
 )
 
 
