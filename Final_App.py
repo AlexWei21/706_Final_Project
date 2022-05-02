@@ -10,16 +10,22 @@ import streamlit as st
 def load_data():
     ## {{ CODE HERE }} ##
     df = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
-    
-    df['Death_per_million'] = df['Deaths'] / df['Population']
-    df['Cases_per_million'] = df['Cases'] / df['Population']
-    
+        
     df['Population_Density'] = df['Population'] / df['Area (sq_km)']
 
     df['Daily_Deaths'] = df.groupby(['Country/Region'])['Deaths'].diff()
     df['Daily_Cases'] = df.groupby(['Country/Region'])['Cases'].diff()
 
-    return df
+    df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
+    df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
+
+    df['Date'] = pd.to_datetime(df['Date'])
+
+    Case_Death = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Daily_Death_per_million', 'Daily_Cases_per_million']]
+
+    Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()
+
+    return Case_Death
 
 
 df = load_data()
