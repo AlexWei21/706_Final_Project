@@ -34,4 +34,4 @@ line = alt.Chart(subset).mark_line().encode(
     )
     
 
-st.altair_chart(line.transform_loess('Date:T', 'Daily_Death:Q'), use_container_width=True)
+st.altair_chart(line.transform_loess('Date', 'Daily_Death'), use_container_width=True)
