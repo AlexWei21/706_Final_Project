@@ -39,15 +39,21 @@ base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
 )
 
-line1 = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
+d_area = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     alt.Y('Daily_Deaths:Q'),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Deaths']
 )
 
+vaccine_line = base.mark_line().encode(
+    
+    y= alt.Y('People_fully_vaccinated:Q'),
+    # color= alt.Color("Type"),
+    tooltip=['Date','People_fully_vaccinated']
+)
 
-line3 = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     alt.Y('Daily_Cases:Q'),
     # color= alt.Color("Type"),
@@ -55,8 +61,14 @@ line3 = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
 )
 
 
-combine = alt.layer(line1,line3).resolve_scale(
+combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
     y = 'independent'
 )
 
-st.altair_chart(combine, use_container_width=True)
+st.altair_chart(combine1, use_container_width=True)
+
+combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(combine2, use_container_width=True)
