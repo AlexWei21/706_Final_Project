@@ -16,6 +16,9 @@ def load_data():
     df['Daily_Deaths'] = df.groupby(['Country/Region'])['Deaths'].diff()
     df['Daily_Cases'] = df.groupby(['Country/Region'])['Cases'].diff()
 
+    df['Daily_Deaths'] = df['Daily_Deaths'] + 0.01
+    df['Daily_Cases'] = df['Daily_Cases'] + 0.01
+
     df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
     df['Vaccinated_Percentage'] = df['People_fully_vaccinated'] / df['Population']
@@ -41,7 +44,7 @@ base = alt.Chart(subset).encode(
 
 line1 = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Deaths:Q',scale=alt.Scale(type='log', domain=(0.005, 1), clamp = True)),
+    alt.Y('log(Daily_Deaths):Q'),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Deaths']
 )
