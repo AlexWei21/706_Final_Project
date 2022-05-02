@@ -35,12 +35,26 @@ df = load_data()
 
 subset = df[df['Country/Region'] == 'US']
 
+base = alt.Chart(subset).encode(
+    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
+)
+
 line1 = alt.Chart(subset).mark_line().encode(
-    x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     y= alt.Y('Daily_Deaths:Q'),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Deaths']
 )
 
+line2 = alt.Chart(subset).mark_line().encode(
+    
+    y= alt.Y('People_fully_vaccinated:Q'),
+    # color= alt.Color("Type"),
+    tooltip=['Date','People_fully_vaccinated']
+)
 
-st.altair_chart(line1, use_container_width=True)
+combine = alt.layer(line1,line2).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(combine, use_container_width=True)
