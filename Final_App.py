@@ -48,7 +48,7 @@ d_area = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
 
 vaccine_line = base.mark_line().encode(
     
-    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%', domain=[0,1])),
+    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%', domain=(0,1))),
     # color= alt.Color("Type"),
     tooltip=['Date','Vaccinated_Percentage']
 )
