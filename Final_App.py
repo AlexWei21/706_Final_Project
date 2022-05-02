@@ -25,13 +25,13 @@ df['Daily_Death'] = df.groupby(['Country/Region'])['Deaths'].diff()
 st.write('## Cases and Death of Covid 19 with Vaccine Data')
 
 ### Choosing Time Period
-date_slider = alt.binding_range(min=min(df['Date']), max=max(df['Date']), step=30)
+# date_slider = alt.binding_range(min=min(df['Date']), max=max(df['Date']), step=30)
 
 subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
     x = 'Date:T',
-    y = 'Deaths:Q'
+    y = 'Daily_Death:Q'
     )
     
 
