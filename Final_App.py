@@ -41,7 +41,7 @@ base = alt.Chart(subset).encode(
 
 line1 = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('log(Daily_Deaths):Q'),
+    alt.Y('log(Daily_Deaths+1):Q'),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Deaths']
 )
