@@ -57,4 +57,4 @@ combine = alt.layer(line1,line2).resolve_scale(
     y = 'independent'
 )
 
-st.altair_chart(line1, use_container_width=True)
+st.altair_chart(combine, use_container_width=True)
