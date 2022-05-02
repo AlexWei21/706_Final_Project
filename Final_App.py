@@ -44,6 +44,13 @@ continent = st.multiselect('Continent',[
     'North America',
     'South America',
     'Oceania'
+    ],[
+    'Asia',
+    'Europe',
+    'Africa',
+    'North America',
+    'South America',
+    'Oceania'
     ]
 )
 subset = subset[subset['Continent'] == continent]
@@ -54,23 +61,32 @@ base = alt.Chart(subset).encode(
 
 d_area = base.mark_area(opacity = 0.3, color = '#FFA500' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('sum(Daily_Deaths):Q'),
+    alt.Y('sum_Daily_Deaths:Q'),
     # color= alt.Color("Type"),
-    tooltip=['Date','sum(Daily_Deaths)']
+    tooltip=['Date','sum_Daily_Deaths']
+).transform_aggregate(
+    sum_Daily_Deaths = 'sum(Daily_Deaths)',
+    groupby=['Date']
 )
 
 vaccine_line = base.mark_line(color = '#A9A9A9').encode(
     
     y= alt.Y('mean(Vaccinated_Percentage)', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
-    tooltip=['Date','mean(Vaccinated_Percentage)']
+    tooltip=['Date','mean_Vaccinated_Percentage']
+).transform_aggregate(
+    mean_Vaccinated_Percentage = 'mean(Vaccinated_Percentage)',
+    groupby=['Date']
 )
 
 c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('sum(Daily_Cases):Q'),
+    alt.Y('sum_Daily_Cases:Q'),
     # color= alt.Color("Type"),
-    tooltip=['Date','sum(Daily_Cases)']
+    tooltip=['Date','sum_Daily_Cases']
+).transform_aggregate(
+    sum_Daily_Cases = 'sum(Daily_Cases)',
+    groupby=['Date']
 )
 
 
