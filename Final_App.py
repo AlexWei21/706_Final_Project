@@ -23,7 +23,9 @@ def load_data():
 
     Case_Death = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Daily_Death_per_million', 'Daily_Cases_per_million']]
 
-    Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()    
+    Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
+
+    Case_Death = Case_Death.melt(['Country/Region', 'Date'], var_name='Type', value_name = 'Number')  
 
     return Case_Death
 
@@ -34,9 +36,9 @@ subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
     x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    y='Daily_Deaths:Q',
-    # color= alt.Color("Rate", title = "Log of Motality rate per 100k", scale=alt.Scale(type='log', domain=(0.005, 1), clamp = True)),
-    # tooltip=[""]
+    y='Number:Q',
+    color= alt.Color("Type"),
+    tooltip=['Date','Number']
 )
 
 
