@@ -28,11 +28,10 @@ st.write('## Cases and Death of Covid 19 with Vaccine Data')
 
 subset = df[df['Country/Region'] == 'US']
 
-dot = alt.Chart(subset).mark_point().encode(
+line = alt.Chart(subset).mark_line().encode(
     x = 'Date:T',
     y = 'Daily_Death:Q'
     )
     
-line = dot.transform_loess('Date', 'Daily_Death').mark_line()
 
 st.altair_chart(line, use_container_width=True)
