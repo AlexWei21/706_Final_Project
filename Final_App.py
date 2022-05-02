@@ -46,12 +46,6 @@ line1 = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
     tooltip=['Date','Daily_Deaths']
 )
 
-line2 = base.mark_line().encode(
-    
-    y= alt.Y('People_fully_vaccinated:Q'),
-    # color= alt.Color("Type"),
-    tooltip=['Date','People_fully_vaccinated']
-)
 
 line3 = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
@@ -61,7 +55,7 @@ line3 = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
 )
 
 
-combine = alt.layer(line1,line2,line3).resolve_scale(
+combine = alt.layer(line1,line3).resolve_scale(
     y = 'independent'
 )
 
