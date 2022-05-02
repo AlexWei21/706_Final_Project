@@ -16,16 +16,13 @@ def load_data():
     df['Daily_Deaths'] = df.groupby(['Country/Region'])['Deaths'].diff()
     df['Daily_Cases'] = df.groupby(['Country/Region'])['Cases'].diff()
 
-    df['Daily_Deaths'] = df['Daily_Deaths'] + 0.01
-    df['Daily_Cases'] = df['Daily_Cases'] + 0.01
-
     df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
     df['Vaccinated_Percentage'] = df['People_fully_vaccinated'] / df['Population']
 
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
-    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', '', 'People_fully_vaccinated']]
+    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'People_fully_vaccinated']]
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
