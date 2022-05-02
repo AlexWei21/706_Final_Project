@@ -22,7 +22,7 @@ def load_data():
 
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
-    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'People_fully_vaccinated']]
+    Vac_Death_df = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage']]
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
@@ -48,9 +48,9 @@ d_area = base.mark_area(opacity = 0.3, color = '#57A44C' ).encode(
 
 vaccine_line = base.mark_line().encode(
     
-    y= alt.Y('People_fully_vaccinated:Q'),
+    y= alt.Y('Vaccinated_Percentage'),
     # color= alt.Color("Type"),
-    tooltip=['Date','People_fully_vaccinated']
+    tooltip=['Date','Vaccinated_Percentage']
 )
 
 c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
