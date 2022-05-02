@@ -35,8 +35,18 @@ def load_data():
 
 df = load_data()
 
+subset = df
 
-subset = df[df['Country/Region'] == 'US']
+continent = st.multiselect('Continent',[
+    'Asia',
+    'Europe',
+    'Africa',
+    'North America',
+    'South America',
+    'Oceania'
+    ]
+)
+subset = subset[subset['Continent'] == 'continent']
 
 base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
