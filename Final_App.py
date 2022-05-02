@@ -14,13 +14,12 @@ def load_data():
     df['Cases_per_million'] = df['Cases'] / df['Population']
     df['Recovered_per_million'] = df['Recovered'] / df['Population']
     df['Population_Density'] = df['Population'] / df['Area (sq_km)']
+    df['Daily_Death'] = df.groupby(['Country/Region'])['Deaths'].diff()
     return df
 
 
 df = load_data()
 # df
-
-df['Daily_Death'] = df.groupby(['Country/Region'])['Deaths'].diff()
 
 st.write('## Cases and Death of Covid 19 with Vaccine Data')
 
@@ -35,4 +34,4 @@ line = alt.Chart(subset).mark_line().encode(
     )
     
 
-st.altair_chart(line, use_container_width=True)
+st.altair_chart(line.transform_loess(x = 'Date:T', y = 'Daily_Death:Q'), use_container_width=True)
