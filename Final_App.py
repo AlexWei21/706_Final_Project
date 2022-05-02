@@ -19,13 +19,11 @@ def load_data():
     df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
 
-    df['Date'] = pd.to_datetime(df['Date'], format="%Y/%m/%d")
+    df['Date'] = df['Date'].astype('datetime64[ns]')
 
     Case_Death = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Daily_Death_per_million', 'Daily_Cases_per_million']]
 
-    Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()
-
-
+    Case_Death = Case_Death.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()    
 
     return Case_Death
 
@@ -38,7 +36,7 @@ line = alt.Chart(subset).mark_line().encode(
     x='Date:T',
     y='Daily_Deaths',
     # color= alt.Color("Rate", title = "Log of Motality rate per 100k", scale=alt.Scale(type='log', domain=(0.005, 1), clamp = True)),
-    # tooltip=["Rate"]
+    # tooltip=[""]
 )
 
 st.altair_chart(line, use_container_width=True)
