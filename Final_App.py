@@ -19,7 +19,7 @@ def load_data():
     df['Daily_Death_per_million'] = df['Daily_Deaths'] * 1000000 / df['Population']
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
 
-    df['Date'] = pd.to_datetime(df['Date'], format="%m/%d/%Y")
+    df['Date'] = pd.to_datetime(df['Date'], format="%Y/%m/%d")
 
     Case_Death = df[['Country/Region', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Daily_Death_per_million', 'Daily_Cases_per_million']]
 
