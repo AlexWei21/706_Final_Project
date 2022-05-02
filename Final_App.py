@@ -37,7 +37,7 @@ subset = df[df['Country/Region'] == 'US']
 
 line = alt.Chart(subset).mark_line().encode(
     x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    y='Daily_Deaths:Q',
+    y='Number:Q',
     color= alt.Color("Type"),
     tooltip=['Date','Number']
 )
