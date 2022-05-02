@@ -26,7 +26,7 @@ def load_data():
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region',pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
-    Vac_Death_df = Vac_Death_df.melt(['Country/Region', 'Date'], var_name = 'Type', value_name = 'Number')
+    # Vac_Death_df = Vac_Death_df.melt(['Country/Region', 'Date'], var_name = 'Type', value_name = 'Number')
 
     return Vac_Death_df
 
@@ -35,12 +35,12 @@ df = load_data()
 
 subset = df[df['Country/Region'] == 'US']
 
-line = alt.Chart(subset).mark_line().encode(
+line1 = alt.Chart(subset).mark_line().encode(
     x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    y= alt.Y('Number:Q', scale=alt.Scale(type="log")),
-    color= alt.Color("Type"),
-    tooltip=['Date','Number']
+    y= alt.Y('Daily_Deaths:Q'),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Deaths']
 )
 
 
-st.altair_chart(line, use_container_width=True)
+st.altair_chart(line1, use_container_width=True)
