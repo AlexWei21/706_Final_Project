@@ -17,4 +17,4 @@ def load_data():
 
 
 df = load_data()
-df.Population_Density.groupby(df['Country/Region']).nunique().hist()
+df.hist()
