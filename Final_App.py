@@ -111,7 +111,7 @@ subset = subset[subset["Continent"].isin(continent)]
 
 rank_data = subset[subset['Date'] == max(subset['Date'])]
 
-rank_data = rank_data.sort_values(by = 'Vaccinated_Percentange')
+# rank_data = rank_data.sort_values(by = 'Vaccinated_Percentange')
 
 st.write(rank_data)
 
