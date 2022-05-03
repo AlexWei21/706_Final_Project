@@ -37,9 +37,7 @@ df = load_data()
 
 subset = df
 
-continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],
-['Asia','European','Africa','North America','South America','Oceania']
-)
+continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'])
 
 subset = subset[subset["Continent"].isin(continent)]
 
