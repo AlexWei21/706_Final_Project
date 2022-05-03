@@ -97,9 +97,9 @@ vac_data = load_vac_data()
 
 date = st.date_input('Target_Date')
 
-vac_subset = vac_data[(vac_data['Country/Region'] == 'US')]
+vac_subset = vac_data[vac_data['Country/Region'] == 'US']
 
-donut1 = alt.Chart(subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 )
