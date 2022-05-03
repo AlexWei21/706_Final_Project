@@ -125,9 +125,13 @@ bars = alt.Chart(rank_data).mark_bar().encode(
     title='Vaccination ranking for selected continents'
 )
 
+st.write('### Rank of the Vaccination Rate of selected Continent')
+
 st.altair_chart(bars, use_container_width=True)
 
 country = st.selectbox('Country', options = subset['Country/Region'].unique())
+
+st.write('### Covid-19 and Vaccination Status in Selected Country')
 
 subset = subset[subset['Country/Region'] == country]
 
