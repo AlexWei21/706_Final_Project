@@ -123,9 +123,9 @@ C_d_area = C_base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
 )
 
 C_vaccine_line = C_base.mark_line(color = '#A9A9A9').encode( 
-    y= alt.Y('mean(Vaccination_Percentage)', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+    y= alt.Y('mean(Vaccinated_Percentage)', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
-    tooltip=['Date','mean(Vaccination_Percentage)']
+    tooltip=['Date','mean(Vaccinated_Percentage)']
 )
 
 C_c_area = C_base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
