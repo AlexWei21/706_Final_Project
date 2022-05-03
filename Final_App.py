@@ -38,7 +38,7 @@ subset = df
 
 global_subset = df
 
-# st.write(global_subset)
+st.write(global_subset)
 
 global_daily_death = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Deaths']]
 global_daily_case = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Cases']]
@@ -103,7 +103,47 @@ st.altair_chart(W_combine1, use_container_width=True)
 
 st.altair_chart(W_combine2, use_container_width=True)
 
-st.write("## Covid-19 Information for a selected country")
+st.write("## Covid-19 Information for a selected continent and country")
+
+continent_subset = df
+
+
+
+C_base = alt.Chart(continent_subset).encode(
+    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
+)
+
+C_d_area = C_base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Deaths_y:Q', scale=alt.Scale(domainMin=0)),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Deaths_y']
+)
+
+C_vaccine_line = C_base.mark_line(color = '#A9A9A9').encode( 
+    y= alt.Y('Global_Vaccination_Rate', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Global_Vaccination_Rate']
+)
+
+C_c_area = C_base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Cases_y:Q',scale=alt.Scale(domainMin=0)),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Cases_y']
+)
+
+C_combine1 = alt.layer(C_d_area,C_vaccine_line).resolve_scale(
+    y = 'independent'
+).properties(
+    title='Global Vaccination Status and Death number'
+)
+
+C_combine2 = alt.layer(C_c_area,C_vaccine_line).resolve_scale(
+    y = 'independent'
+).properties(
+    title='Global Vaccination Status and Case number'
+)
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
