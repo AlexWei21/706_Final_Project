@@ -116,9 +116,9 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 250
 )
 
-vac_subset = vac_subset[vac_subset['Country/Region'] == country]
+vac_subset_2 = vac_subset[vac_subset['Country/Region'] == country]
 
-donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+donut2 = alt.Chart(vac_subset_2).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
@@ -128,6 +128,7 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
 
 donut = alt.hconcat(donut1,donut2).resolve_scale(
     color = 'independent'
+    
 )
 
 st.altair_chart(donut)
