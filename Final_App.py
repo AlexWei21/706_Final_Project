@@ -86,22 +86,24 @@ W_c_area = W_base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
 
 W_combine1 = alt.layer(W_d_area,W_vaccine_line).resolve_scale(
     y = 'independent'
+).properties(
+    title='Global Vaccination Status and Death number'
 )
 
 W_combine2 = alt.layer(W_c_area,W_vaccine_line).resolve_scale(
     y = 'independent'
+).properties(
+    title='Global Vaccination Status and Case number'
 )
 
 st.title('World Covid-19 Situation and Vaccination Status Overview')
 
 
-st.altair_chart(W_combine1, use_container_width=True).properties(
-    title='Global Vaccination Status and Death number'
-)
+st.altair_chart(W_combine1, use_container_width=True)
 
-st.altair_chart(W_combine2, use_container_width=True).properties(
-    title='Global Vaccination Status and Case number'
-)
+st.altair_chart(W_combine2, use_container_width=True)
+
+
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
