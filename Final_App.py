@@ -127,7 +127,7 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 500
 )
 
-st.altair_chart(donut1)
 st.altair_chart(donut2)
+st.altair_chart(donut1)
 
 
