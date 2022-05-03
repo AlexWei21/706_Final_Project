@@ -193,7 +193,7 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 500
 )
 
-vac_subset = vac_subset[vac_subset['Continent'] == continent]
+vac_subset = vac_subset[vac_subset['Continent'].isin(continent)]
 
 donut3 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
