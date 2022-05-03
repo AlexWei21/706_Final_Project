@@ -48,13 +48,13 @@ global_subset = global_subset[global_subset['Country/Region'] == 'World']
 # st.write(global_daily_case)
 # st.write(global_subset)
 
-global_death_case = global_daily_death.merge(how = 'left', on = 'Date', right=global_daily_death)
+global_death_case = global_daily_case.merge(how = 'left', on = 'Date', right=global_daily_death)
 
-st.write(global_death_case)
+#st.write(global_death_case)
 
-global_subset['Daily_Deaths'] = global_daily_death
-global_subset['Daily_Cases'] = global_daily_case
 global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/ 7868872451
+
+global_subset = global_subset.merge(how = 'right', on = 'Date', right= global_death_case)
 
 st.write(global_subset)
 
