@@ -104,10 +104,9 @@ vac_subset = vac_data
 
 # st.write(vac_subset)
 
-vac_subset = vac_subset[vac_subset['Country/Region'] == country]
-
 year = st.selectbox('Year',(2020,2021,2022))
 month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12))
+
 vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == month) ]
 
 donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
@@ -115,7 +114,18 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     color = 'Status',
 )
 
-st.altair_chart(donut1)
+vac_subset = vac_subset[vac_subset['Country/Region'] == country]
+
+donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+    theta = 'sum(Number):Q',
+    color = 'Status',
+)
+
+donut = alt.hconcat(donut1,donut2).resolve_scale(
+    color = 'independent'
+)
+
+st.altair_chart(donut)
 
 
 
