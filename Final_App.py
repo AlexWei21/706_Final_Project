@@ -40,6 +40,8 @@ global_subset = df
 
 global_subset = global_subset.groupby(['Date']).sum().reset_index()
 
+global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/global_subset['Population']
+
 # st.write(global_subset)
 
 # st.write(subset)
@@ -55,12 +57,10 @@ W_d_area = W_base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     tooltip=['Date','Daily_Deaths']
 )
 
-st.altair_chart(W_d_area, use_container_width=True)
-
 W_vaccine_line = W_base.mark_line(color = '#A9A9A9').encode( 
-    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+    y= alt.Y('Global_Vaccination_Rate', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
-    tooltip=['Date','Vaccinated_Percentage']
+    tooltip=['Date','Global_Vaccination_Rate']
 )
 
 W_c_area = W_base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
