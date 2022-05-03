@@ -46,6 +46,7 @@ global_daily_case = global_subset.groupby(['Date']).sum().reset_index()[['Date',
 global_subset = global_subset[global_subset['Country/Region'] == 'World']
 
 st.write(global_daily_case)
+st.write(global_subset)
 
 global_subset['Daily_Deaths'] = global_daily_death
 global_subset['Daily_Cases'] = global_daily_case
