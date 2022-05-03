@@ -113,8 +113,6 @@ vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == m
 donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
-).properties(
-    title=f'Vaccination Status globally {year} . {month}'
 )
 
 vac_subset = vac_subset[vac_subset['Country/Region'] == country]
@@ -123,7 +121,7 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
-    title=f'Vaccination Status in {country} {year} . {month}'
+    title='Vaccination Status in'
 )
 
 donut = alt.hconcat(donut1,donut2).resolve_scale(
