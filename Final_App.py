@@ -37,6 +37,12 @@ df = load_data()
 
 subset = df
 
+continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],
+['Asia','European','Africa','North America','South America','Oceania']
+)
+
+subset = subset[subset["Continent"].isin(continent)]
+
 country = st.selectbox('Country', options = subset['Country/Region'].unique() )
 
 subset = subset[subset['Country/Region'] == country]
