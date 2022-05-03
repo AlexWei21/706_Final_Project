@@ -108,6 +108,7 @@ year = st.selectbox('Year',(2020,2021,2022))
 month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12))
 
 vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == month) ]
+vac_subset_2 = vac_subset[vac_subset['Country/Region'] == country]
 
 donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
@@ -117,9 +118,7 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 250
 )
 
-vac_subset = vac_subset[vac_subset['Country/Region'] == country]
-
-donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+donut2 = alt.Chart(vac_subset_2).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
