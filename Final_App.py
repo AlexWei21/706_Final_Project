@@ -38,10 +38,13 @@ subset = df
 
 global_subset = df
 
+global_daily_death = global_subset.groupby(['Date']).sum().reset_index()['Daily_Deaths']
+global_daily_case = global_subset.groupby(['Date']).sum().reset_index()['Daily_Cases']
+
 global_subset = global_subset[global_subset['Country/Region'] == 'World']
 
-st.write(global_subset)
-
+global_subset['Daily_Deaths'] = global_daily_death
+global_subset['Daily_Cases'] = global_daily_case
 global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/ 7868872451
 
 st.write(global_subset)
