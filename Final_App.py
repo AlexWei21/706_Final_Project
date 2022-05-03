@@ -41,7 +41,7 @@ continent = st.multiselect('Continent',['Asia','European','Africa','North Americ
 
 subset = subset[subset["Continent"].isin(continent)]
 
-country = st.selectbox('Country', options = subset['Country/Region'].unique(), default = 'US' )
+country = st.selectbox('Country', options = subset['Country/Region'].unique())
 
 subset = subset[subset['Country/Region'] == country]
 
