@@ -55,24 +55,8 @@ continent = st.multiselect('Continent',[
 )
 subset = subset[subset['Continent'].isin(continent)]
 
-base = alt.Chart(subset).encode(
-    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
-).transform_aggregate(
-    groupby=['Date']
-)
-
-d_area = base.mark_area(opacity = 0.3, color = '#FFA500' ).encode(
-    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('sum_Daily_Deaths:Q'),
-    # color= alt.Color("Type"),
-    tooltip=['Date','sum_Daily_Deaths']
-).transform_aggregate(
-    sum_Daily_Deaths = 'sum(Daily_Deaths)',
-    groupby=['Date']
-)
-
-vaccine_line = base.mark_line(color = '#A9A9A9').encode(
-    
+vaccine_line = alt.Chart(subset).mark_line(color = '#A9A9A9').encode(
+    x = alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     y= alt.Y('mean(Vaccinated_Percentage)', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
     tooltip=['Date','mean_Vaccinated_Percentage']
@@ -80,26 +64,3 @@ vaccine_line = base.mark_line(color = '#A9A9A9').encode(
     mean_Vaccinated_Percentage = 'mean(Vaccinated_Percentage)',
     groupby=['Date']
 )
-
-c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
-    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('sum_Daily_Cases:Q'),
-    # color= alt.Color("Type"),
-    tooltip=['Date','sum_Daily_Cases']
-).transform_aggregate(
-    sum_Daily_Cases = 'sum(Daily_Cases)',
-    groupby=['Date']
-)
-
-
-combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
-    y = 'independent'
-)
-
-st.altair_chart(combine1, use_container_width=True)
-
-combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
-    y = 'independent'
-)
-
-st.altair_chart(combine2, use_container_width=True)
