@@ -36,31 +36,46 @@ df = load_data()
 
 subset = df
 
-st.write(subset)
+# st.write(subset)
 
 base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
 )
 
-d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
+W_d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     alt.Y('sum(Daily_Deaths):Q', scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
     tooltip=['Date','sum(Daily_Deaths)']
 )
 
-vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
-    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+W_Vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
+    y= alt.Y('Global_Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
-    tooltip=['Date','Vaccinated_Percentage']
+    tooltip=['Date','Global_Vaccinated_Percentage']
+).transform_aggregate(
+    Global_Vaccinated_Percentage = 'sum(People_fully_vaccinated)/sum(Population)',
+    groupby = ["Date:T"]
 )
 
-c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+W_c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
+    alt.Y('sum(Daily_Cases):Q',scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
-    tooltip=['Date','Daily_Cases']
+    tooltip=['Date',sum('Daily_Cases')]
 )
+
+combineW1 = alt.layer(W_d_area,W_Vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(combineW1, use_container_width=True)
+
+combineW2 = alt.layer(W_c_area,W_Vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(combineW2, use_container_width=True)
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
