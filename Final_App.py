@@ -164,12 +164,12 @@ def load_vac_data():
     df['Month'] = pd.DatetimeIndex(df['Date']).month
     df['Day'] = pd.DatetimeIndex(df['Date']).day
 
-    df = df[['Country/Region','Year','Month','People_partially_vaccinated','People_fully_vaccinated','Population']]
+    df = df[['Country/Region','Continent','Year','Month','People_partially_vaccinated','People_fully_vaccinated','Population']]
     df['People_not_vaccinated'] = df['Population'] - df['People_partially_vaccinated'] - df['People_fully_vaccinated']
 
     df = df.drop(['Population'], axis=1)
 
-    df = df.melt(['Country/Region', 'Year','Month'], var_name = 'Status', value_name = 'Number')
+    df = df.melt(['Country/Region','Continent', 'Year','Month'], var_name = 'Status', value_name = 'Number')
 
     return df
 
