@@ -45,13 +45,13 @@ global_daily_case = global_subset.groupby(['Date']).sum().reset_index()['Daily_C
 
 global_subset = global_subset[global_subset['Country/Region'] == 'World']
 
-st.write(global_daily_case)
+st.write(len(global_daily_case))
 
 global_subset['Daily_Deaths'] = global_daily_death
 global_subset['Daily_Cases'] = global_daily_case
 global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/ 7868872451
 
-st.write(global_subset)
+st.write(len(global_subset))
 
 W_base = alt.Chart(global_subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
