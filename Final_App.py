@@ -38,7 +38,7 @@ subset = df
 
 global_subset = df
 
-st.write(global_subset)
+# st.write(global_subset)
 
 global_daily_death = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Deaths']]
 global_daily_case = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Cases']]
@@ -108,6 +108,8 @@ st.write("## Covid-19 Information for a selected continent and country")
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
 subset = subset[subset["Continent"].isin(continent)]
+
+st.write(subset)
 
 C_base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
