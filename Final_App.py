@@ -176,8 +176,8 @@ def load_vac_data():
 vac_data = load_vac_data()
 vac_subset = vac_data
 
-st.write(vac_subset)
-st.write(continent)
+# st.write(vac_subset)
+# st.write(continent)
 
 year = st.selectbox('Year',(2020,2021,2022), index=1)
 month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12), index = 6)
@@ -199,7 +199,7 @@ donut3 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
-    title=f'Vaccination Status in {continent} {year} . {month}',
+    title=f'Vaccination Status in selected continents {year} . {month}',
     width = 500
 )
 
