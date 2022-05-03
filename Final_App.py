@@ -92,9 +92,16 @@ W_combine2 = alt.layer(W_c_area,W_vaccine_line).resolve_scale(
     y = 'independent'
 )
 
-st.altair_chart(W_combine1, use_container_width=True)
+st.write('# World Covid-19 Situation and Vaccination Status Overview')
 
-st.altair_chart(W_combine2, use_container_width=True)
+
+st.altair_chart(W_combine1, use_container_width=True).properties.properties(
+    title='Global Vaccination Status and Death number',
+)
+
+st.altair_chart(W_combine2, use_container_width=True).properties.properties(
+    title='Global Vaccination Status and Case number',
+)
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
