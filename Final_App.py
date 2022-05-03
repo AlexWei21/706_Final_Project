@@ -96,11 +96,11 @@ st.title('World Covid-19 Situation and Vaccination Status Overview')
 
 
 st.altair_chart(W_combine1, use_container_width=True).properties(
-    title='Global Vaccination Status and Death number',
+    title='Global Vaccination Status and Death number'
 )
 
 st.altair_chart(W_combine2, use_container_width=True).properties(
-    title='Global Vaccination Status and Case number',
+    title='Global Vaccination Status and Case number'
 )
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
