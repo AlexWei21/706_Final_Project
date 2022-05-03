@@ -55,6 +55,8 @@ W_d_area = W_base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     tooltip=['Date','Daily_Deaths']
 )
 
+st.altair_chart(W_d_area, use_container_width=True)
+
 W_vaccine_line = W_base.mark_line(color = '#A9A9A9').encode( 
     y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
