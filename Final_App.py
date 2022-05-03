@@ -36,6 +36,12 @@ df = load_data()
 
 subset = df
 
+global_subset = df
+
+global_subset = global_subset.groupby(['Date']).sum().reset_index()
+
+st.write(global_subset)
+
 # st.write(subset)
 
 base = alt.Chart(subset).encode(
