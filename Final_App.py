@@ -1,3 +1,4 @@
+from turtle import width
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -113,6 +114,7 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     color = 'Status',
 ).properties(
     title=f'Vaccination Status globally {year} . {month}'
+    width = 250
 )
 
 vac_subset = vac_subset[vac_subset['Country/Region'] == country]
@@ -122,6 +124,7 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     color = 'Status',
 ).properties(
     title=f'Vaccination Status in {country} {year} . {month}'
+    width = 250
 )
 
 donut = alt.hconcat(donut1,donut2).resolve_scale(
