@@ -30,12 +30,17 @@ def load_data():
 
     # Vac_Death_df = Vac_Death_df.melt(['Country/Region', 'Date'], var_name = 'Type', value_name = 'Number')
 
-    return Vac_Death_df
+    Vac_data = df[['Country/Region','Date','People_partially_vaccincated','People_fully_vaccinated','Population']]
+    
+    Vac_data['People_not_vaccinated'] = Vac_data['Population'] - Vac_data['People_partially_vaccincated'] - Vac_data['People_fully_vaccinated']
+
+    return Vac_Death_df, Vac_data
 
 
-df = load_data()
+df,vac_data = load_data()
 
 subset = df
+vac_sub = vac_data
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
@@ -44,6 +49,7 @@ subset = subset[subset["Continent"].isin(continent)]
 country = st.selectbox('Country', options = subset['Country/Region'].unique() )
 
 subset = subset[subset['Country/Region'] == country]
+vac_sub = vac_sub[vac_sub['Country/Region'] == country]
 
 base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
@@ -83,5 +89,5 @@ combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
 st.altair_chart(combine2, use_container_width=True)
 
 date = st.date_input('Target_Date')
-subset = subset[subset['Date'] == date]
+vac_sub = vac_sub[vac_sub['Date'] == date]
 
