@@ -40,8 +40,8 @@ global_subset = df
 
 st.write(global_subset)
 
-global_daily_death = global_subset.groupby(['Date']).sum().reset_index()
-global_daily_case = global_subset.groupby(['Date']).sum().reset_index()
+global_daily_death = global_subset.groupby(['Date']).sum().reset_index()['Daily_Deaths']
+global_daily_case = global_subset.groupby(['Date']).sum().reset_index()['Daily_Cases']
 
 global_subset = global_subset[global_subset['Country/Region'] == 'World']
 
