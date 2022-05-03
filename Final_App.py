@@ -1,5 +1,3 @@
-from curses.ascii import US
-from turtle import title
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -113,6 +111,8 @@ vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == m
 donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
+).properties(
+    title=f'Vaccination Status globally {year} . {month}'
 )
 
 vac_subset = vac_subset[vac_subset['Country/Region'] == country]
@@ -120,6 +120,8 @@ vac_subset = vac_subset[vac_subset['Country/Region'] == country]
 donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
+).properties(
+    title=f'Vaccination Status in {country} {year} . {month}'
 )
 
 donut = alt.hconcat(donut1,donut2).resolve_scale(
