@@ -113,13 +113,13 @@ rank_data = subset[subset['Date'] == max(subset['Date'])]
 
 # st.write(rank_data)
 
-rank_data = rank_data.sort_values(by = ['Vaccinated_Percentage'])
+# rank_data = rank_data.sort_values(by = ['Vaccinated_Percentage'])
 
-st.write(rank_data)
+# st.write(rank_data)
 
 bars = alt.Chart(rank_data).mark_bar().encode(
     x = alt.X('Vaccinated_Percentage:Q',axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
-    y = 'Country/Region:O',
+    y = alt.Y('Country/Region:O', sort = '-x'),
     tooltip = ['Country/Region','Vaccinated_Percentage']
 ).properties(
     title='Vaccination ranking for selected continents'
