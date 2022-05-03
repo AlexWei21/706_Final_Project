@@ -92,7 +92,7 @@ W_combine2 = alt.layer(W_c_area,W_vaccine_line).resolve_scale(
     y = 'independent'
 )
 
-st.write('# World Covid-19 Situation and Vaccination Status Overview')
+st.title('World Covid-19 Situation and Vaccination Status Overview')
 
 
 st.altair_chart(W_combine1, use_container_width=True).properties(
