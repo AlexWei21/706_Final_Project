@@ -192,6 +192,16 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 500
 )
 
+vac_subset = vac_subset[vac_subset['Continent'] == continent]
+
+donut3 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+    theta = 'sum(Number):Q',
+    color = 'Status',
+).properties(
+    title=f'Vaccination Status in {continent} {year} . {month}',
+    width = 500
+)
+
 vac_subset = vac_subset[vac_subset['Country/Region'] == country]
 
 donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
@@ -202,7 +212,9 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 500
 )
 
+
 st.altair_chart(donut2)
+st.altair_chart(donut3)
 st.altair_chart(donut1)
 
 
