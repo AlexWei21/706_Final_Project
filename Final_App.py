@@ -40,29 +40,45 @@ global_subset = df
 
 global_subset = global_subset.groupby(['Date']).sum().reset_index()
 
-st.write(global_subset)
+# st.write(global_subset)
 
 # st.write(subset)
 
-base = alt.Chart(subset).encode(
+W_base = alt.Chart(global_subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
 )
 
-W_d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
+W_d_area = W_base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('sum(Daily_Deaths):Q', scale=alt.Scale(domainMin=0)),
+    alt.Y('Daily_Deaths:Q', scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
-    tooltip=['Date','sum(Daily_Deaths)']
+    tooltip=['Date','Daily_Deaths']
 )
 
-W_c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
-    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('sum(Daily_Cases):Q',scale=alt.Scale(domainMin=0)),
+W_vaccine_line = W_base.mark_line(color = '#A9A9A9').encode( 
+    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
     # color= alt.Color("Type"),
-    tooltip=['Date','sum(Daily_Cases)']
+    tooltip=['Date','Vaccinated_Percentage']
 )
 
-st.altair_chart(W_d_area, use_container_width=True)
+W_c_area = W_base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Cases']
+)
+
+W_combine1 = alt.layer(W_d_area,W_vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+W_combine2 = alt.layer(W_d_area,W_vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(W_combine1, use_container_width=True)
+
+st.altair_chart(W_combine2, use_container_width=True)
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
