@@ -37,32 +37,43 @@ df = load_data()
 
 subset = df
 
-continent = st.multiselect('Continent',[
-    'Asia',
-    'Europe',
-    'Africa',
-    'North America',
-    'South America',
-    'Oceania'
-    ],[
-    'Asia',
-    'Europe',
-    'Africa',
-    'North America',
-    'South America',
-    'Oceania'
-    ]
-)
-subset = subset[subset['Continent'].isin(continent)]
+country = st.select_box('Country', subset['Country/Region'].unique().tolist())
 
-vaccine_line = alt.Chart(subset).mark_line(color = '#A9A9A9').encode(
-    x = alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    y= alt.Y('mean(Vaccinated_Percentage)', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+subset = subset[subset['Country/Region'] == country]
+
+base = alt.Chart(subset).encode(
+    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
+)
+
+d_area = base.mark_area(opacity = 0.3, color = '#FFA500' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Deaths:Q'),
     # color= alt.Color("Type"),
-    tooltip=['Date','mean_Vaccinated_Percentage']
-).transform_aggregate(
-    mean_Vaccinated_Percentage = 'mean(Vaccinated_Percentage)',
-    groupby=['Date']
+    tooltip=['Date','Daily_Deaths']
 )
 
-st.altair_chart(vaccine_line, use_container_width=True)
+vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
+    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Vaccinated_Percentage']
+)
+
+c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Cases:Q'),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Cases']
+)
+
+
+combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(combine1, use_container_width=True)
+
+combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
+    y = 'independent'
+)
+
+st.altair_chart(combine2, use_container_width=True)
