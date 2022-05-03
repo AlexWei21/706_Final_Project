@@ -51,7 +51,7 @@ base = alt.Chart(subset).encode(
 
 d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Deaths:Q'),
+    alt.Y('Daily_Deaths:Q', scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Deaths']
 )
@@ -64,7 +64,7 @@ vaccine_line = base.mark_line(color = '#A9A9A9').encode(
 
 c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Cases:Q'),
+    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
     tooltip=['Date','Daily_Cases']
 )
