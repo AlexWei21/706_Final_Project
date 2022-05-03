@@ -37,7 +37,7 @@ df = load_data()
 
 subset = df
 
-continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'])
+continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
 subset = subset[subset["Continent"].isin(continent)]
 
@@ -81,3 +81,7 @@ combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
 )
 
 st.altair_chart(combine2, use_container_width=True)
+
+date = st.slider("Date", min(df['Date'], max(df['Date'])))
+subset = subset[subset['Date'] == date]
+
