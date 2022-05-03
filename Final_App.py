@@ -23,7 +23,7 @@ def load_data():
 
     df.loc[df['Country/Region'] == 'US', 'Continent'] = 'North America'
 
-    Vac_Death_df = df[['Country/Region', 'Continent', 'Date', 'Daily_Deaths', 'Daily_Cases','People_fully_vaccinated', 'Population', 'Vaccinated_Percentage']]
+    Vac_Death_df = df[['Country/Region', 'Continent', 'Date','Daily_Deaths', 'Daily_Cases','People_fully_vaccinated', 'Population', 'Vaccinated_Percentage']]
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region','Continent', pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
@@ -36,7 +36,7 @@ df = load_data()
 
 subset = df
 
-global_subset = df
+global_subset = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
 
 global_subset = global_subset.groupby(['Date']).sum().reset_index()
 
