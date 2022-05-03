@@ -109,7 +109,11 @@ continent = st.multiselect('Continent',['Asia','European','Africa','North Americ
 
 subset = subset[subset["Continent"].isin(continent)]
 
-st.write(subset)
+rank_data = subset[subset['Date'] == max(subset['Date'])]
+
+rank_data = rank_data.sort_values(by = 'Vaccinated_Percentange')
+
+st.write(rank_data)
 
 country = st.selectbox('Country', options = subset['Country/Region'].unique())
 
