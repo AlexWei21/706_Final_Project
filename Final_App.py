@@ -23,7 +23,7 @@ def load_data():
 
     df.loc[df['Country/Region'] == 'US', 'Continent'] = 'North America'
 
-    Vac_Death_df = df[['Country/Region', 'Continent', 'Date', 'Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage']]
+    Vac_Death_df = df[['Country/Region', 'Continent', 'Date', 'Daily_Deaths', 'Daily_Cases','People_fully_vaccinated', 'Population', 'Vaccinated_Percentage']]
 
     Vac_Death_df = Vac_Death_df.groupby(['Country/Region','Continent', pd.Grouper(key="Date", freq="1W")]).mean().reset_index()  
 
