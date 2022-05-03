@@ -36,15 +36,15 @@ df = load_data()
 
 subset = df
 
-global_subset = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
+global_subset = df
+
+st.write(global_subset)
 
 global_subset = global_subset.groupby(['Date']).sum().reset_index()
 
 st.write(global_subset)
 
 global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/global_subset['Population']
-
-st.write(global_subset)
 
 # st.write(subset)
 
