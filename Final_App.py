@@ -169,7 +169,7 @@ st.altair_chart(combine1, use_container_width=True)
 combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
     y = 'independent'
 ).properties(
-    title=f'Global Vaccination Status and Case number for {country}'
+    title=f'Vaccination Status and Case number for {country}'
 )
 
 st.altair_chart(combine2, use_container_width=True)
