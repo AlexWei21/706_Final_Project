@@ -36,6 +36,32 @@ df = load_data()
 
 subset = df
 
+st.write(subset)
+
+base = alt.Chart(subset).encode(
+    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
+)
+
+d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('sum(Daily_Deaths):Q', scale=alt.Scale(domainMin=0)),
+    # color= alt.Color("Type"),
+    tooltip=['Date','sum(Daily_Deaths)']
+)
+
+vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
+    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Vaccinated_Percentage']
+)
+
+c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
+    # color= alt.Color("Type"),
+    tooltip=['Date','Daily_Cases']
+)
+
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
 subset = subset[subset["Continent"].isin(continent)]
