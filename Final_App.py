@@ -38,15 +38,13 @@ subset = df
 
 global_subset = df
 
-st.write(global_subset)
-
-global_subset = global_subset.groupby(['Date']).sum().reset_index()
+global_subset = global_subset[global_subset['Country/Region'] == 'World']
 
 st.write(global_subset)
 
-global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/global_subset['Population']
+global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/ 7868872451
 
-# st.write(subset)
+st.write(global_subset)
 
 W_base = alt.Chart(global_subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
