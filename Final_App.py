@@ -7,12 +7,10 @@ alt.data_transformers.enable('default', max_rows=None)
 import numpy as np
 import matplotlib.pyplot as plt
 
-### P1.2 ###
-
 @st.cache
 
 def load_data():
-    ## {{ CODE HERE }} ##
+    
     df = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
         
     df['Population_Density'] = df['Population'] / df['Area (sq_km)']
