@@ -93,6 +93,8 @@ def load_vac_data():
     df = df[['Country/Region','Year','Month','People_partially_vaccinated','People_fully_vaccinated','Population']]
     df['People_not_vaccinated'] = df['Population'] - df['People_partially_vaccinated'] - df['People_fully_vaccinated']
 
+    df.drop(['population'])
+
     df = df.melt(['Country/Region', 'Year','Month'], var_name = 'Status', value_name = 'Number')
 
     return df
