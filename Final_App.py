@@ -37,7 +37,7 @@ df = load_data()
 
 subset = df
 
-country = st.select_box('Country', options = subset['Country/Region'].unique())
+country = st.select_box('Country', ('US','China') )
 
 subset = subset[subset['Country/Region'] == country]
 
