@@ -56,6 +56,8 @@ global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinate
 
 global_subset = global_subset.merge(how = 'right', on = 'Date', right= global_death_case)
 
+global_subset['Country/Region'] = global_subset['Country/Region'].fillna('World')
+
 st.write(global_subset)
 
 W_base = alt.Chart(global_subset).encode(
