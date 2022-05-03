@@ -38,7 +38,7 @@ subset = df
 
 global_subset = df
 
-st.write(global_subset)
+# st.write(global_subset)
 
 global_daily_death = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Deaths']]
 global_daily_case = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Cases']]
@@ -58,7 +58,7 @@ global_subset = global_subset.merge(how = 'right', on = 'Date', right= global_de
 
 global_subset['Country/Region'] = global_subset['Country/Region'].fillna('World')
 
-st.write(global_subset)
+# st.write(global_subset)
 
 W_base = alt.Chart(global_subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
@@ -66,9 +66,9 @@ W_base = alt.Chart(global_subset).encode(
 
 W_d_area = W_base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Deaths:Q', scale=alt.Scale(domainMin=0)),
+    alt.Y('Daily_Deaths_y:Q', scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
-    tooltip=['Date','Daily_Deaths']
+    tooltip=['Date','Daily_Deaths_y']
 )
 
 W_vaccine_line = W_base.mark_line(color = '#A9A9A9').encode( 
@@ -79,9 +79,9 @@ W_vaccine_line = W_base.mark_line(color = '#A9A9A9').encode(
 
 W_c_area = W_base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
+    alt.Y('Daily_Cases_y:Q',scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
-    tooltip=['Date','Daily_Cases']
+    tooltip=['Date','Daily_Cases_y']
 )
 
 W_combine1 = alt.layer(W_d_area,W_vaccine_line).resolve_scale(
