@@ -64,3 +64,5 @@ vaccine_line = alt.Chart(subset).mark_line(color = '#A9A9A9').encode(
     mean_Vaccinated_Percentage = 'mean(Vaccinated_Percentage)',
     groupby=['Date']
 )
+
+st.altair_chart(vaccine_line, use_container_width=True)
