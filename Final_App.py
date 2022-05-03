@@ -57,6 +57,8 @@ subset = subset[subset['Continent'].isin(continent)]
 
 base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
+).transform_aggregate(
+    groupby=['Date']
 )
 
 d_area = base.mark_area(opacity = 0.3, color = '#FFA500' ).encode(
