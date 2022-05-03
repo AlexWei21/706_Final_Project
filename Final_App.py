@@ -82,5 +82,29 @@ combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
 
 st.altair_chart(combine2, use_container_width=True)
 
+def load_vac_data():
+    
+    df = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
+
+    df = df[['Country/Region','Date','People_partially_vaccinated','People_fully_vaccinated','Population']]
+    df['People_not_vaccinated'] = df['Population'] - df['People_partially_vaccinated'] - df['People_fully_vaccinated']
+
+    df = df.melt(['Country/Region', 'Date'], var_name = 'Status', value_name = 'Number')
+
+    return df
+
+vac_data = load_vac_data()
+
 date = st.date_input('Target_Date')
+
+vac_subset = vac_data[(vac_data['Country/Region'] == 'US') and (vac_data['Date'] == date)]
+
+donut1 = alt.Chart(subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+    theta = 'Number:Q',
+    color = 'Status',
+)
+
+st.altair_chart(donut1)
+
+
 
