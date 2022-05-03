@@ -96,14 +96,14 @@ W_combine2 = alt.layer(W_c_area,W_vaccine_line).resolve_scale(
     title='Global Vaccination Status and Case number'
 )
 
-st.title('World Covid-19 Situation and Vaccination Status Overview')
-
+st.title('World and Country-wide Covid-19 Situation and Vaccination Status Overview')
+st.write("## Global Covid-19 Information")
 
 st.altair_chart(W_combine1, use_container_width=True)
 
 st.altair_chart(W_combine2, use_container_width=True)
 
-
+st.write("## Covid-19 Information for a selected country")
 
 continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
@@ -140,15 +140,21 @@ c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
 
 combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
     y = 'independent'
+).properties(
+    title=f'Vaccination Status and Death number for {country}'
 )
 
 st.altair_chart(combine1, use_container_width=True)
 
 combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
     y = 'independent'
+).properties(
+    title=f'Global Vaccination Status and Case number for {country}'
 )
 
 st.altair_chart(combine2, use_container_width=True)
+
+st.write("## Detailed Vaccination Status of selected country compared to Global situation")
 
 def load_vac_data():
     
