@@ -82,6 +82,6 @@ combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
 
 st.altair_chart(combine2, use_container_width=True)
 
-date = st.slider("Date", min(df['Date'], max(df['Date'])))
+date = st.date_input('Target_Date')
 subset = subset[subset['Date'] == date]
 
