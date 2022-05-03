@@ -126,14 +126,9 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 250
 )
 
-# donut = alt.hconcat(donut1,donut2).resolve_scale(
+donut = donut1 | donut2
 
-    #color = 'independent'
-    
-#)
-
-st.altair_chart(donut1)
-st.altair_chart(donut2)
+st.altair_chart(donut)
 
 
 
