@@ -49,7 +49,7 @@ base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
 )
 
-d_area = base.mark_area(opacity = 0.3, color = '#FFA500' ).encode(
+d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     alt.Y('Daily_Deaths:Q'),
     # color= alt.Color("Type"),
