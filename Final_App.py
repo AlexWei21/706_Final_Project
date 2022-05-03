@@ -2,6 +2,11 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+import geopandas as gpd
+alt.data_transformers.enable('default', max_rows=None)
+import numpy as np
+import matplotlib.pyplot as plt
+
 ### P1.2 ###
 
 @st.cache
@@ -241,3 +246,125 @@ st.altair_chart(donut3)
 st.altair_chart(donut1)
 
 
+def load_data():
+    gob_cases = pd.read_csv(
+        "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
+    glob_recovered = pd.read_csv(
+        "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv")
+    glob_deaths = pd.read_csv(
+        "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")
+    glob_vacc = pd.read_csv(
+        "https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_global.csv")
+    glob_vac_admin = pd.read_csv(
+        "https://raw.githubusercontent.com/govex/COVID-19/master/data_tables/vaccine_data/global_data/time_series_covid19_vaccine_doses_admin_global.csv")
+
+    return glob_cases, glob_recovered, glob_deaths, glob_vacc, glob_vac_admin
+
+glob_cases, glob_recovered, glob_deaths, glob_vacc, glob_vac_admin = load_data()
+
+
+
+st.write("## Data Wrangling")
+
+# Changing the different names for the US into a single name "US"
+glob_vacc['Country_Region'] = glob_vacc['Country_Region'].replace(['US (Aggregate)', "United States of America"],'US')
+glob_cases['Country/Region'] = glob_cases['Country/Region'].replace(['US (Aggregate)', "United States of America"],'US')
+glob_recovered['Country/Region'] = glob_recovered['Country/Region'].replace(['US (Aggregate)', "United States of America"],'US')
+glob_deaths['Country/Region'] = glob_deaths['Country/Region'].replace(['US (Aggregate)', "United States of America"],'US')
+
+#Melting the deaths dataset
+deaths = pd.melt(glob_deaths,
+                 ["Province/State", "Country/Region", "Lat", "Long"],
+                 var_name="Date",
+                 value_name="Deaths")
+
+deaths = deaths.drop(['Province/State','Lat','Long'],axis=1)
+deaths = deaths.groupby(['Country/Region','Date']).sum().reset_index()
+deaths['Date'] = pd.to_datetime(deaths['Date'], errors='coerce')
+deaths = deaths.sort_values(by=['Country/Region','Date'])
+deaths
+
+# Melting the recovery datasets
+recovered = pd.melt(glob_recovered,
+                    ["Province/State", "Country/Region", "Lat", "Long"],
+                    var_name="Date",
+                    value_name="Recovered")
+
+recovered = recovered.drop(['Province/State','Lat','Long'], axis=1)
+recovered = recovered.groupby(['Country/Region','Date']).sum().reset_index()
+recovered['Date'] = pd.to_datetime(recovered['Date'], errors='coerce')
+recovered = recovered.sort_values(by=['Country/Region','Date'])
+recovered
+
+# Joining Deaths and Recovery datasets
+data = deaths.merge(how = 'outer', right=recovered, on=['Country/Region', 'Date'])
+
+# Melting the cases dataset
+cases = pd.melt(glob_cases,
+                ["Province/State", "Country/Region", "Lat", "Long"],
+                var_name="Date",
+                value_name="Cases")
+
+cases = cases.drop(['Province/State','Lat','Long'], axis=1)
+cases = cases.groupby(['Country/Region','Date']).sum().reset_index()
+cases['Date'] = pd.to_datetime(cases['Date'], errors='coerce')
+cases = cases.sort_values(by=['Country/Region','Date'])
+
+# Merge Cases with previous Merge
+data = data.merge(how = 'outer', right=cases, on=['Country/Region', 'Date'])
+
+# Renaming and subseting the Vaccination dataset
+vacc_data = glob_vacc[['Country_Region','Date','Doses_admin','People_partially_vaccinated','People_fully_vaccinated']]
+vacc_data = vacc_data.rename(columns={'Country_Region': 'Country/Region'})
+vacc_data['Date'] =  pd.to_datetime(vacc_data['Date'], errors='coerce')
+
+# Merge Vaccination dataset with previous merge
+full_data = data.merge(right = vacc_data, on = ['Country/Region', 'Date'], how = 'outer')
+
+# Splitting dates by day month and year
+full_data['Year'] = pd.DatetimeIndex(full_data['Date']).year
+full_data['Month'] = pd.DatetimeIndex(full_data['Date']).month
+full_data['Day'] = pd.DatetimeIndex(full_data['Date']).day
+
+#Importing the world dataset in geopandas format
+world=gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+world=world.rename(columns={"name": "Country/Region"}) # Renaiming the column name into Country/Region in order to index it while joining the datasets
+world['Country/Region'] = world['Country/Region'].replace(['United States of America'],'US')
+world
+
+#Creating a multiselect for country
+Country=st.multiselect("Select the Countries you want to display", options=np.unique(list(Y["Country/Region"])))
+Y=Y[(Y["Country/Region"]==country)]
+# Creating the Chloropeth map for Deaths
+# Create a drop-down quarter selector
+Y = Y.astype({"Quarter": str}, errors="raise")  # Forcing the Quarter column into a string format
+quarter = Y['Quarter'].unique()
+Q_dropdown = alt.binding_select(options=quarter)
+Q_select = alt.selection_single(bind=Q_dropdown, fields=["Quarter"])
+
+# Creating a geopandas dataframe
+
+Y = Y.merge(world, on="Country/Region", how="left")
+# Y['Death_Ratio']= Y['Deaths']/Y['pop_est']
+geo = gpd.GeoDataFrame(Y)  # Creating the geopandas dataframe
+# geo=gpd.GeoDataFrame(Full_data) # Creating the geopandas dataframe
+# Displaying the map chart
+base = alt.Chart(geo).mark_geoshape().project().encode(color=alt.Color('Deaths'),
+                                                       tooltip=['Country/Region', "Deaths", "Cases", "Recovered"]
+                                                       ).properties(
+    width=500,
+    height=400).add_selection(Q_select).transform_filter(Q_select).properties(title="World Chloropeth of Covid Deaths")
+
+st.altair_chart(base)
+
+# Creating the Chloropeth map for Cases
+
+map_cases = alt.Chart(geo).mark_geoshape().project().encode(color=alt.Color('Cases'),
+                                                            tooltip=['Country/Region', "Deaths", "Cases", "Recovered"]
+                                                            ).properties(
+    width=500,
+    height=400).add_selection(Q_select).transform_filter(Q_select).properties(title="World Chloropeth of Covid Deaths")
+
+map_cases
+
+st.altair_chart(map_cases)
