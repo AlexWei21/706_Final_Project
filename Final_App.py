@@ -109,7 +109,8 @@ continent = st.multiselect('Continent',['Asia','European','Africa','North Americ
 
 subset = subset[subset["Continent"].isin(continent)]
 
-st.write(subset)
+# st.write(subset)
+
 
 C_base = alt.Chart(subset).encode(
     alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
