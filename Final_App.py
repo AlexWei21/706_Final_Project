@@ -109,7 +109,7 @@ vac_subset = vac_data[(vac_data['Year'] == year) & (vac_data['Month'] == month)]
 vac_subset = vac_subset[vac_subset['Country/Region'] == country]
 
 donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
-    theta = 'sum(Number):Q',
+    theta = 'Number:Q',
     color = 'Status',
 )
 
