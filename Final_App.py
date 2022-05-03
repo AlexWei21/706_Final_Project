@@ -113,7 +113,7 @@ rank_data = subset[subset['Date'] == max(subset['Date'])]
 
 st.write(rank_data)
 
-rank_data = rank_data.sort_values(by = ['Vaccinated_Percentange'])
+rank_data = rank_data.sort_values(by = ['Vaccinated_Percentage'])
 
 st.write(rank_data)
 
