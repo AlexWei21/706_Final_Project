@@ -1,3 +1,4 @@
+from email.policy import default
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -40,7 +41,7 @@ continent = st.multiselect('Continent',['Asia','European','Africa','North Americ
 
 subset = subset[subset["Continent"].isin(continent)]
 
-country = st.selectbox('Country', options = subset['Country/Region'].unique() )
+country = st.selectbox('Country', options = subset['Country/Region'].unique(), default = 'US' )
 
 subset = subset[subset['Country/Region'] == country]
 
@@ -103,8 +104,8 @@ vac_subset = vac_data
 
 # st.write(vac_subset)
 
-year = st.selectbox('Year',(2020,2021,2022))
-month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12))
+year = st.selectbox('Year',(2020,2021,2022), default = 2021)
+month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12), default = 7)
 
 vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == month) ]
 
@@ -127,7 +128,9 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
 )
 
 donut = alt.hconcat(donut1,donut2).resolve_scale(
-    color = 'independent'  
+    color='independent'
+).configure_view(
+    stroke=None
 )
 
 st.altair_chart(donut)
