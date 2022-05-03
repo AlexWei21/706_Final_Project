@@ -113,7 +113,7 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
-    title=f'Vaccination Status globally {year} . {month}'
+    title=f'Vaccination Status globally {year} . {month}',
     width = 250
 )
 
@@ -123,7 +123,7 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
-    title=f'Vaccination Status in {country} {year} . {month}'
+    title=f'Vaccination Status in {country} {year} . {month}',
     width = 250
 )
 
