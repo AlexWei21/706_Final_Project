@@ -62,7 +62,7 @@ W_c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
     # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
     alt.Y('sum(Daily_Cases):Q',scale=alt.Scale(domainMin=0)),
     # color= alt.Color("Type"),
-    tooltip=['Date',sum('Daily_Cases')]
+    tooltip=['Date','sum(Daily_Cases)']
 )
 
 combineW1 = alt.layer(W_d_area,W_Vaccine_line).resolve_scale(
