@@ -40,9 +40,11 @@ global_subset = df
 
 global_subset = global_subset.groupby(['Date']).sum().reset_index()
 
+st.write(global_subset)
+
 global_subset['Global_Vaccination_Rate'] = global_subset['People_fully_vaccinated']/global_subset['Population']
 
-# st.write(global_subset)
+st.write(global_subset)
 
 # st.write(subset)
 
@@ -74,7 +76,7 @@ W_combine1 = alt.layer(W_d_area,W_vaccine_line).resolve_scale(
     y = 'independent'
 )
 
-W_combine2 = alt.layer(W_d_area,W_vaccine_line).resolve_scale(
+W_combine2 = alt.layer(W_c_area,W_vaccine_line).resolve_scale(
     y = 'independent'
 )
 
