@@ -86,18 +86,23 @@ def load_vac_data():
     
     df = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
 
-    df = df[['Country/Region','Date','People_partially_vaccinated','People_fully_vaccinated','Population']]
+    df['Year'] = pd.DatetimeIndex(df['Date']).year
+    df['Month'] = pd.DatetimeIndex(df['Date']).month
+    df['Day'] = pd.DatetimeIndex(df['Date']).day
+
+    df = df[['Country/Region','Year','Month','People_partially_vaccinated','People_fully_vaccinated','Population']]
     df['People_not_vaccinated'] = df['Population'] - df['People_partially_vaccinated'] - df['People_fully_vaccinated']
 
-    df = df.melt(['Country/Region', 'Date'], var_name = 'Status', value_name = 'Number')
+    df = df.melt(['Country/Region', 'Year','Month'], var_name = 'Status', value_name = 'Number')
 
     return df
 
 vac_data = load_vac_data()
 
-date = st.date_input('Target_Date')
-
-vac_subset = vac_data[vac_data['Country/Region'] == 'US']
+year = st.selectbox('Year',('2020','2021','2022'))
+month = st.selectbox('Month',('1','2','3','4','5','6','7','8','9','10','11','12'))
+vac_subset = vac_data[(vac_data['Year'] == year) & (vac_data['Month'] == month)]
+vac_subset = vac_subset[vac_subset['Country/Region'] == country]
 
 donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta = 'sum(Number):Q',
