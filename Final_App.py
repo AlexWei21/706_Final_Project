@@ -1,4 +1,3 @@
-from email.policy import default
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -119,14 +118,14 @@ donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
 )
 
 donut2 = alt.Chart(vac_subset_2).mark_arc(innerRadius=50, outerRadius=90).encode(
-    theta = 'Number:Q',
+    theta = 'sum(Number):Q',
     color = 'Status',
 ).properties(
     title=f'Vaccination Status in {country} {year} . {month}',
     width = 250
 )
 
-donut = alt.hconcat(donut1,donut2).resolve_scale(
+donut = alt.concat(donut1,donut2).resolve_scale(
     color='independent'
 ).configure_view(
     stroke=None
