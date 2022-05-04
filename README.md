@@ -6,53 +6,51 @@ Group Members: Alex Wei, Benito D Isaac, Yidan Ma
 
 **Table of Content**
 
-**[Steps](#_5t57xu65mrgb) 2**
+**[Steps](#_5t57xu65mrgb)**
 
-[Tasks Clarification](#_b2655jc2do) 2
+[Tasks Clarification](#_b2655jc2do) 
 
-[Dataset Searching and Understanding](#_z0kdvvqpl0jw) 2
+[Dataset Searching and Understanding](#_z0kdvvqpl0jw) 
 
-[Covid-19 World Case Dataset / Covid-19 World Death Dataset](#_tvx15au8ltta) 2
+[Covid-19 World Case Dataset / Covid-19 World Death Dataset](#_tvx15au8ltta) 
 
-[Covid-19 Vaccination Status Dataset](#_kwsrnnsbezjy) 3
+[Covid-19 Vaccination Status Dataset](#_kwsrnnsbezjy) 
 
-[Continent Information Dataset](#_j6rk56ui1fov) 3
+[Continent Information Dataset](#_j6rk56ui1fov) 
 
-[World Population Dataset](#_n5uhq2u4yo4e) 4
+[World Population Dataset](#_n5uhq2u4yo4e) 
 
-[Dataset Preprocessing](#_6d40w1ezh7a1) 5
+[Dataset Preprocessing](#_6d40w1ezh7a1) 
 
-[Joining Case/Death, vaccination status, continent information, and population datasets](#_r8ch41somjyv) 5
+[Joining Case/Death, vaccination status, continent information, and population datasets](#_r8ch41somjyv) 
 
-[Construct Streamlit App](#_pcqhtdpeeivo) 7
+[Construct Streamlit App](#_pcqhtdpeeivo) 
 
-[SideBar](#_m9z7a1do28qy) 7
+[SideBar](#_m9z7a1do28qy) 
 
-[Global Covid-19 Information Line Chart](#_3a1b8ke9ue5t) 7
+[Global Covid-19 Information Line Chart](#_3a1b8ke9ue5t) 
 
-[The rank of the Vaccination Rate of Selected Continent](#_j28r07pf8mvt) 7
+[The rank of the Vaccination Rate of Selected Continent](#_j28r07pf8mvt) 
 
-[Covid-19 Information for a Selected Country Line Chart](#_v5pq7ghm8gmw) 8
+[Covid-19 Information for a Selected Country Line Chart](#_v5pq7ghm8gmw) 
 
-[Detailed Vaccination Status Pie Chart](#_bch0ywwhdlen) 8
+[Detailed Vaccination Status Pie Chart](#_bch0ywwhdlen) 
 
-[Global Map with Death and Case Data](#_yvhplxc98ewr) 8
+[Global Map with Death and Case Data](#_yvhplxc98ewr) 
 
-**[Design Sketches](#_v181h3hrrhnt) 9**
+**[Observations using Our Streamlit App](#_mk43oc8o8wfn) **
 
-**[Observations using Our Streamlit App](#_mk43oc8o8wfn) 12**
+**[Future Work and Additional Sketches](#_f81h36pcbkwy) **
 
-**[Future Work and Additional Sketches](#_f81h36pcbkwy) 17**
+[Covid-19 Follow-up](#_h34ms4a1ok2a) 
 
-[Covid-19 Follow-up](#_h34ms4a1ok2a) 17
+[Comparison Between Different Diseases](#_x9chswgk9upa) 
 
-[Comparison Between Different Diseases](#_x9chswgk9upa) 17
+[Collect Data With Detailed Stratification](#_1pjxlprggr9o) 
 
-[Collect Data With Detailed Stratification](#_1pjxlprggr9o) 18
+**[Contributions](#_vlpfual29nmb) **
 
-**[Contributions](#_vlpfual29nmb) 19**
-
-**[Reference](#_itss75kbx4kc) 20**
+**[Reference](#_itss75kbx4kc) **
 
 ## Steps
 
@@ -170,35 +168,6 @@ Detailed Vaccination Status Pie chart enables the user to select a country with 
 
 Using the global map as the containing of cases and death around the world could provide a comparison of deaths and cases statistics among countries within a month directly. Also when selected on one country, the country would be highlighted, helping the users to focus on the data of a single country. The tooltip shows the cases/deaths number, country name, and the selected month of the dataset.
 
-## Design Sketches
-
-**Design 1**
-
-![](RackMultipart20220504-1-3zpcct_html_fe129e607efaba3d.png)
-
-This is out first draft, where we decided to use scatter plot to show the case/death number of the countries and interact with world map below. Then we realize that scatter plot might not the best way to do so.
-
-**Design 2**
-
-![](RackMultipart20220504-1-3zpcct_html_d30e5e635e4553c1.png)
-
-So we decided to use the line chart to show the cases and deaths of selected countries incertain time period.
-
-**Design 3**
-
-![](RackMultipart20220504-1-3zpcct_html_7fc43d24a975249d.png)
-
-We want to compare the death/case number in different countries, so we create another line chart.
-
-**Design 4**
-
-![](RackMultipart20220504-1-3zpcct_html_481eb386873569a2.jpg)
-
-We found that cases and deaths are on a totally different scale, and log is not helping since the increase rate of cases is too different in the beginning compared to the rest of the time, causing non-informative graphs. So, we decided to use two separate graphs to represent case and death.
-
-Also, we now decided to compare country data with entire world data to see how the country is performing compared to the average level in the world. Also, we include vaccination status data to see the correlation between death/case and vaccination status around the world.
-
-##
 
 
 ## Observations using Our Streamlit App
