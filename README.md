@@ -98,13 +98,6 @@ Link to the dataset:
 
 World Population Dataset provides the population of countries worldwide. This dataset would be used when calculating cases/million people in order to compare the severity of pandemics between countries. It also contains the area of the country, which might be helpful in calculating the relationship between population density and the covid severity of the country. It also contains geometry shapefile information about countries to build the map visualization.
 
-###
-
-
-##
-
-
--
 ## Dataset Preprocessing
 
 The dataset we mentioned above are from different sources, thus their covariates, names of the country, and standard of the data might not be exactly the same. So, we need to clean the data and make an integrated dataset for future use.
@@ -125,8 +118,6 @@ The population Status dataset is joined into the dataset using the same method a
 
 Table 1: Outcome Table of the Preprocessing Step
 
-##
-
 
 ## Construct Streamlit App
 
@@ -136,34 +127,34 @@ Link to the app:
 
 ([https://share.streamlit.io/alexwei21/706\_final\_project/main/Final\_App.py](https://share.streamlit.io/alexwei21/706_final_project/main/Final_App.py))
 
--
+
 ### SideBar
 
 We decided to create a sidebar to our streamlit app, since we think that users usually come to our app with their own questions that needed to be answered. We want to let them choose what kind of information they want to see instead of seeing all the information that might not be useful for them. So, we divided our app into three parts answering three questions using the sidebar.
 
--
+
 ### Global Covid-19 Information Line Chart
 
 The Global Covid-19 information line chart contains two graphs. One graph contains the information on daily deaths interacting with vaccination status all over the world, while the other graph contains the case number with vaccination status. Case and Death numbers are shown as the area in the graph, while the line represents the vaccination percentage around the world.
 
--
+
 ### The rank of the Vaccination Rate of Selected Continent
 
 The rank of the vaccination rate of the selected continent shows the ultimate (till now) vaccination rate in all countries belonging to that continent in descending order.
 
--
+
 ### Covid-19 Information for a Selected Country Line Chart
 
 Country-wide Covid-19 information line chart contains two graphs. One graph contains the information on daily death cooperates with vaccination status in the selected country, while the other graph contains the case number with vaccination status. Cases and Deaths numbers are shown as the area in the graph, while the line represents the vaccination percentage around the world.
 
 Users could choose the country by filtering continents and thus select a country that is interested in looking deep into the Covid data in that specific country.
 
--
+
 ### Detailed Vaccination Status Pie Chart
 
 Detailed Vaccination Status Pie chart enables the user to select a country with a specific month to see the detailed vaccination status of that country compared to the continent that country belongs to and also compare with the entire world in that specific month.
 
--
+
 ### Global Map with Death and Case Data
 
 Using the global map as the containing of cases and death around the world could provide a comparison of deaths and cases statistics among countries within a month directly. Also when selected on one country, the country would be highlighted, helping the users to focus on the data of a single country. The tooltip shows the cases/deaths number, country name, and the selected month of the dataset.
@@ -248,6 +239,7 @@ We could collect more detailed data about Covid-19, for example, death and cases
 - Pie Chart Construction
 - Write-up and Video Demo
 - Map Construction
+- Sidebar Construction
 
 ## Reference
 
