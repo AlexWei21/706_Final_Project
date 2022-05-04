@@ -1,6 +1,6 @@
 ![](RackMultipart20220504-1-3zpcct_html_3d1d00263eea809a.png)
 
-# Covid-19 Status App Process Book
+# Covid-19 Status App Guide
 
 Group Members: Alex Wei, Benito D Isaac, Yidan Ma
 
