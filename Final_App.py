@@ -17,6 +17,10 @@ def load_data():
     df['Daily_Cases_per_million'] = df['Daily_Cases'] * 1000000 / df['Population']
     df['Vaccinated_Percentage'] = df['People_fully_vaccinated'] / df['Population']
 
+    df['Year'] = pd.DatetimeIndex(df['Date']).year
+    df['Month'] = pd.DatetimeIndex(df['Date']).month
+    df['Day'] = pd.DatetimeIndex(df['Date']).day
+
     df['Date'] = df['Date'].astype('datetime64[ns]')
 
     df.loc[df['Country/Region'] == 'US', 'Continent'] = 'North America'
@@ -31,8 +35,12 @@ def load_data():
 
 
 df = load_data()
+#country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/country_codes.csv', dtype = {'conuntry-code': str}) #
 
+# merge country codes
 subset = df
+
+#.merge(country_df[['Country','country-code']], how = 'left', on = 'Country')
 
 global_subset = df
 
