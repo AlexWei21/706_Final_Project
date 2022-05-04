@@ -36,7 +36,7 @@ subset = df
 
 global_subset = df
 
-# st.write(global_subset)
+st.write(global_subset)
 
 global_daily_death = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Deaths']]
 global_daily_case = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Cases']]
@@ -237,3 +237,4 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
 st.altair_chart(donut2)
 st.altair_chart(donut3)
 st.altair_chart(donut1)
+
