@@ -102,20 +102,20 @@ W_combine2 = alt.layer(W_c_area,W_vaccine_line).resolve_scale(
     title='Global Vaccination Status and Case number'
 )
 
-st.title('World and Country-wide Covid-19 Situation and Vaccination Status Overview')
-st.write("## Global Covid-19 Information")
+## st.title('World and Country-wide Covid-19 Pandemic and Vaccination Status Overview')
+## st.write("## Global Covid-19 Trend")
 
-st.altair_chart(W_combine1, use_container_width=True)
+## st.altair_chart(W_combine1, use_container_width=True)
 
-st.altair_chart(W_combine2, use_container_width=True)
+## st.altair_chart(W_combine2, use_container_width=True)
 
-st.write("## Covid-19 Information for a selected continent and country")
+## st.write("## Covid-19 Trend for a selected continent and country")
 
-continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
+##continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
 
-subset = subset[subset["Continent"].isin(continent)]
+##subset = subset[subset["Continent"].isin(continent)]
 
-rank_data = subset[subset['Date'] == max(subset['Date'])]
+##rank_data = subset[subset['Date'] == max(subset['Date'])]
 
 # st.write(rank_data)
 
@@ -123,66 +123,66 @@ rank_data = subset[subset['Date'] == max(subset['Date'])]
 
 # st.write(rank_data)
 
-bars = alt.Chart(rank_data).mark_bar().encode(
-    x = alt.X('Vaccinated_Percentage:Q',axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
-    y = alt.Y('Country/Region:O', sort = '-x'),
-    tooltip = ['Country/Region','Vaccinated_Percentage']
-).properties(
-    title='Vaccination ranking for selected continents'
-)
+##bars = alt.Chart(rank_data).mark_bar().encode(
+##    x = alt.X('Vaccinated_Percentage:Q',axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+##    y = alt.Y('Country/Region:O', sort = '-x'),
+##    tooltip = ['Country/Region','Vaccinated_Percentage']
+##).properties(
+##    title='Vaccination ranking for selected continents'
+##)
 
-st.write('### Rank of the Vaccination Rate of selected Continent')
+## st.write('### Rank of the Vaccination Rate of selected Continent')
 
-st.altair_chart(bars, use_container_width=True)
+## st.altair_chart(bars, use_container_width=True)
 
-country = st.selectbox('Country', options = subset['Country/Region'].unique())
+## country = st.selectbox('Country', options = subset['Country/Region'].unique())
 
-st.write('### Covid-19 Cases and Deaths and Vaccination Status in Selected Country')
+## st.write('### Covid-19 Cases and Deaths and Vaccination Status in Selected Country')
 
-subset = subset[subset['Country/Region'] == country]
+##subset = subset[subset['Country/Region'] == country]
 
-base = alt.Chart(subset).encode(
-    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
-)
+##base = alt.Chart(subset).encode(
+##    alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
+##)
 
-d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
-    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Deaths:Q', scale=alt.Scale(domainMin=0)),
-    # color= alt.Color("Type"),
-    tooltip=['Date','Daily_Deaths']
-)
+##d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
+##    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+##    alt.Y('Daily_Deaths:Q', scale=alt.Scale(domainMin=0)),
+##    # color= alt.Color("Type"),
+##    tooltip=['Date','Daily_Deaths']
+##)
 
-vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
-    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
-    # color= alt.Color("Type"),
-    tooltip=['Date','Vaccinated_Percentage']
-)
+##vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
+##    y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+##    # color= alt.Color("Type"),
+##    tooltip=['Date','Vaccinated_Percentage']
+##)
 
-c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
-    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
-    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
-    # color= alt.Color("Type"),
-    tooltip=['Date','Daily_Cases']
-)
+##c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+##    # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+##    alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
+##    # color= alt.Color("Type"),
+##    tooltip=['Date','Daily_Cases']
+##)
 
 
-combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
-    y = 'independent'
-).properties(
-    title=f'Vaccination Status and Death number for {country}'
-)
+##combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
+##    y = 'independent'
+##).properties(
+##    title=f'Vaccination Status and Death number for {country}'
+##)
 
-st.altair_chart(combine1, use_container_width=True)
+##st.altair_chart(combine1, use_container_width=True)
 
-combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
-    y = 'independent'
-).properties(
-    title=f'Vaccination Status and Case number for {country}'
-)
+##combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
+##    y = 'independent'
+##).properties(
+##    title=f'Vaccination Status and Case number for {country}'
+##)
 
-st.altair_chart(combine2, use_container_width=True)
+##st.altair_chart(combine2, use_container_width=True)
 
-st.write("## Detailed Vaccination Status of selected country compared to Global situation")
+##st.write("## Detailed Vaccination Status of selected country compared to Global situation")
 
 def load_vac_data():
     
@@ -207,46 +207,43 @@ vac_subset = vac_data
 # st.write(vac_subset)
 # st.write(continent)
 
-year = st.selectbox('Year',(2020,2021,2022), index=1)
-month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12), index = 6)
+##year = st.selectbox('Year',(2020,2021,2022), index=1)
+##month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12), index = 6)
 
-vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == month) ]
-
-
-donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
-    theta = 'sum(Number):Q',
-    color = 'Status',
-).properties(
-    title=f'Vaccination Status globally {year} . {month}',
-    width = 500
-)
-
-vac_subset = vac_subset[vac_subset['Continent'].isin(continent)]
-
-donut3 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
-    theta = 'sum(Number):Q',
-    color = 'Status',
-).properties(
-    title=f'Vaccination Status in selected continents {year} . {month}',
-    width = 500
-)
-
-vac_subset = vac_subset[vac_subset['Country/Region'] == country]
-
-donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
-    theta = 'sum(Number):Q',
-    color = 'Status',
-).properties(
-    title=f'Vaccination Status in {country} {year} . {month}',
-    width = 500
-)
-
-st.altair_chart(donut2)
-st.altair_chart(donut3)
-st.altair_chart(donut1)
+##vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == month) ]
 
 
-st.write("## World Map of Country Average Daily Cases and Deaths at Selected Time")
+##donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+##    theta = 'sum(Number):Q',
+##    color = 'Status',
+##).properties(
+##    title=f'Vaccination Status globally {year} . {month}',
+##    width = 500
+##)
+
+##vac_subset = vac_subset[vac_subset['Continent'].isin(continent)]
+
+##donut3 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+##    theta = 'sum(Number):Q',
+##    color = 'Status',
+##).properties(
+##    title=f'Vaccination Status in selected continents {year} . {month}',
+##    width = 500
+##)
+
+##vac_subset = vac_subset[vac_subset['Country/Region'] == country]
+
+##donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+##    theta = 'sum(Number):Q',
+##    color = 'Status',
+##).properties(
+##    title=f'Vaccination Status in {country} {year} . {month}',
+##    width = 500
+##)
+
+##st.altair_chart(donut2)
+##st.altair_chart(donut3)
+##st.altair_chart(donut1)
 
 def load_geo_data():
     
@@ -258,61 +255,174 @@ geo_data = load_geo_data()
 
 source = alt.topo_feature(data.world_110m.url, 'countries')
 
-world_map_df = geo_data[(geo_data['Year']==year) & (geo_data['Month']==month)].groupby(['Country', 'country-code'])['Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'].mean().reset_index()
 
-# a gray map using as the visualization background
-background = alt.Chart(source
-).mark_geoshape(
-    fill='#aaa',
-    stroke='black',
-    strokeWidth=0.15
-).properties(
-    width=650,
-    height=350
-).project('naturalEarth1')
+MODE = st.sidebar.radio('Select view',['Global Covid-19 Trend','Covid-19 Trend and Vaccination Rate in Selected Country', 'World Map of Country Average Daily Cases and Deaths at Selected Time'])
 
-selector = alt.selection_single(
-    empty='all'
+if MODE == 'Global Covid-19 Trend':
+    st.title('World and Country-wide Covid-19 Pandemic and Vaccination Status Overview')
+    st.write("## Global Covid-19 Trend")
+    st.altair_chart(W_combine1, use_container_width=True)
+    st.altair_chart(W_combine2, use_container_width=True)
+
+elif MODE == 'Covid-19 Trend and Vaccination Rate in Selected Country':
+    st.title('World and Country-wide Covid-19 Pandemic and Vaccination Status Overview')
+    st.write("## Covid-19 Trend and Vaccination Rate in Selected Country")
+    continent = st.multiselect('Continent',['Asia','European','Africa','North America','South America','Oceania'],['North America'])
+    subset = subset[subset["Continent"].isin(continent)]
+    rank_data = subset[subset['Date'] == max(subset['Date'])]
+    bars = alt.Chart(rank_data).mark_bar().encode(
+        x = alt.X('Vaccinated_Percentage:Q',axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+        y = alt.Y('Country/Region:O', sort = '-x'),
+        tooltip = ['Country/Region','Vaccinated_Percentage']).properties(
+        title='Vaccination ranking for selected continents')
+
+    st.write('### Rank of the Vaccination Rate of selected Continent')
+    st.altair_chart(bars, use_container_width=True)
+    country = st.selectbox('Country', options = subset['Country/Region'].unique())
+
+    st.write('### Covid-19 Cases and Deaths and Vaccination Status in Selected Country')
+    subset = subset[subset['Country/Region'] == country]
+
+    base = alt.Chart(subset).encode(
+        alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45))
     )
 
-case_scale = alt.Scale(domain=[world_map_df['Daily_Cases'].min(), world_map_df['Daily_Cases'].max()])
-case_color = alt.Color(field='Daily_Cases', type="quantitative", scale=case_scale)
-chart_case = alt.Chart(source,
-    ).properties( 
-        width=650, height=350, title=f'World Average Daily Cases in {year}.{month} '
-        ).project('naturalEarth1').add_selection(
-            selector).transform_lookup(
-        lookup="id",
-        from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
-        ).mark_geoshape(stroke='black', strokeWidth=0.15).encode(
-            color = case_color,
-            tooltip = [
-                alt.Tooltip("Country:N", title="Country"),
-                alt.Tooltip("Daily_Cases:Q", title="Average Daily Cases"),
-                alt.Tooltip("Vaccinated_Percentage:Q", title="Vaccination Percentage"),
-            ]
-            ).transform_filter(selector)
+    d_area = base.mark_area(opacity = 0.5, color = '#FFA500' ).encode(
+        # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+        alt.Y('Daily_Deaths:Q', scale=alt.Scale(domainMin=0)),
+        # color= alt.Color("Type"),
+        tooltip=['Date','Daily_Deaths']
+    )
+
+    vaccine_line = base.mark_line(color = '#A9A9A9').encode( 
+        y= alt.Y('Vaccinated_Percentage', axis=alt.Axis(format = '%'), scale=alt.Scale(domain=(0,1))),
+        # color= alt.Color("Type"),
+        tooltip=['Date','Vaccinated_Percentage']
+    )
+
+    c_area = base.mark_area(opacity = 0.3, color = '#0000FF' ).encode(
+        # x= alt.X('Date:T', axis=alt.Axis(format = '%Y/%m',labelAngle=45)),
+        alt.Y('Daily_Cases:Q',scale=alt.Scale(domainMin=0)),
+        # color= alt.Color("Type"),
+        tooltip=['Date','Daily_Cases']
+    )
 
 
-death_scale = alt.Scale(domain=[world_map_df['Daily_Deaths'].min(), world_map_df['Daily_Deaths'].max()])
-death_color = alt.Color(field='Daily_Deaths', type="quantitative", scale = death_scale)
-chart_death = alt.Chart(source,
-    ).properties( 
-        width=650, height=350, title=f'World Average Daily Deaths in {year}.{month} '
-        ).project('naturalEarth1').add_selection(
-            selector).transform_lookup(
-        lookup="id",
-        from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
-        ).mark_geoshape(stroke='black',strokeWidth=0.15).encode(
-            color= death_color,
-            tooltip = ['Country:N', alt.Tooltip("Daily_Deaths:Q", title="Average Daily Deaths"), "Vaccinated_Percentage:Q"]
-            ).transform_filter(selector
-            )
+    combine1 = alt.layer(d_area,vaccine_line).resolve_scale(
+        y = 'independent'
+    ).properties(
+        title=f'Vaccination Status and Death number for {country}'
+    )
 
-world_maps = alt.vconcat(background + chart_case, background + chart_death
-).resolve_scale(
-    color='independent'
-)
+    st.altair_chart(combine1, use_container_width=True)
+
+    combine2 = alt.layer(c_area,vaccine_line).resolve_scale(
+        y = 'independent'
+    ).properties(
+        title=f'Vaccination Status and Case number for {country}'
+    )
+
+    st.altair_chart(combine2, use_container_width=True)
+
+    year = st.selectbox('Year',(2020,2021,2022), index=1)
+    month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12), index = 6)
+
+    vac_subset = vac_subset[(vac_subset['Year'] == year) & (vac_subset['Month'] == month) ]
 
 
-st.altair_chart(world_maps)
+    donut1 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+        theta = 'sum(Number):Q',
+        color = 'Status',
+    ).properties(
+        title=f'Vaccination Status globally {year} . {month}',
+        width = 500
+    )
+
+    vac_subset = vac_subset[vac_subset['Continent'].isin(continent)]
+
+    donut3 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+        theta = 'sum(Number):Q',
+        color = 'Status',
+    ).properties(
+        title=f'Vaccination Status in selected continents {year} . {month}',
+        width = 500
+    )
+
+    vac_subset = vac_subset[vac_subset['Country/Region'] == country]
+
+    donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
+        theta = 'sum(Number):Q',
+        color = 'Status',
+    ).properties(
+        title=f'Vaccination Status in {country} {year} . {month}',
+        width = 500
+    )
+
+    st.altair_chart(donut2)
+    st.altair_chart(donut3)
+    st.altair_chart(donut1)
+
+else:
+    st.title('World and Country-wide Covid-19 Pandemic and Vaccination Status Overview')
+    st.write("## World Map of Country Average Daily Cases and Deaths at Selected Time")
+    year = st.selectbox('Year',(2020,2021,2022), index=1)
+    month = st.selectbox('Month',(1,2,3,4,5,6,7,8,9,10,11,12), index = 6)
+
+
+    world_map_df = geo_data[(geo_data['Year']==year) & (geo_data['Month']==month)].groupby(['Country', 'country-code'])['Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'].mean().reset_index()
+
+    background = alt.Chart(source
+    ).mark_geoshape(
+        fill='#aaa',
+        stroke='black',
+        strokeWidth=0.15
+    ).properties(
+        width=650,
+        height=350
+    ).project('naturalEarth1')
+
+    selector = alt.selection_single(
+        empty='all'
+        )
+
+    case_scale = alt.Scale(domain=[world_map_df['Daily_Cases'].min(), world_map_df['Daily_Cases'].max()])
+    case_color = alt.Color(field='Daily_Cases', type="quantitative", scale=case_scale)
+    chart_case = alt.Chart(source,
+        ).properties( 
+            width=650, height=350, title=f'World Average Daily Cases in {year}.{month} '
+            ).project('naturalEarth1').add_selection(selector
+            ).transform_lookup(
+                    lookup="id",
+                    from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
+                ).mark_geoshape(stroke='black', strokeWidth=0.15).encode(
+                color = case_color,
+                tooltip = [
+                    alt.Tooltip("Country:N", title="Country"),
+                    alt.Tooltip("Daily_Cases:Q", title="Average Daily Cases"),
+                    alt.Tooltip("Vaccinated_Percentage:Q", title="Vaccination Percentage"),
+                ]
+                ).transform_filter(selector)
+
+
+    death_scale = alt.Scale(domain=[world_map_df['Daily_Deaths'].min(), world_map_df['Daily_Deaths'].max()])
+    death_color = alt.Color(field='Daily_Deaths', type="quantitative", scale = death_scale)
+    chart_death = alt.Chart(source,
+        ).properties( 
+            width=650, height=350, title=f'World Average Daily Deaths in {year}.{month} '
+            ).project('naturalEarth1').add_selection(
+                selector).transform_lookup(
+            lookup="id",
+            from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
+            ).mark_geoshape(stroke='black',strokeWidth=0.15).encode(
+                color= death_color,
+                tooltip = ['Country:N', alt.Tooltip("Daily_Deaths:Q", title="Average Daily Deaths"), "Vaccinated_Percentage:Q"]
+                ).transform_filter(selector)
+
+    world_maps = alt.vconcat(background + chart_case, background + chart_death
+    ).resolve_scale(
+        color='independent'
+    )
+
+
+    st.altair_chart(world_maps)
+
