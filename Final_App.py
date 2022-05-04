@@ -253,11 +253,9 @@ def load_geo_data():
 
 geo_data = load_geo_data()
 
-
 source = alt.topo_feature(data.world_110m.url, 'countries')
 
-
-world_map_df = subset[(subset['Year']==year) & (subset['Month']==month)].groupby(['Country', 'country-code'])['Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'].mean().reset_index()
+world_map_df = geo_data[(geo_data['Year']==year) & (geo_data['Month']==month)].groupby(['Country', 'country-code'])['Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'].mean().reset_index()
 
 # a gray map using as the visualization background
 background = alt.Chart(source
