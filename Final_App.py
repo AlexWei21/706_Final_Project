@@ -252,7 +252,7 @@ def load_geo_data():
 
 geo_data = load_geo_data()
 
-from vega_datasets import data
+# from vega_datasets import data
 
 source = alt.topo_feature(data.world_110m.url, 'countries')
 
