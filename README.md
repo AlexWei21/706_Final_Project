@@ -38,9 +38,9 @@ Group Members: Alex Wei, Benito D Isaac, Yidan Ma
 
 [Global Map with Death and Case Data](#_yvhplxc98ewr) 
 
-**[Observations using Our Streamlit App](#_mk43oc8o8wfn) **
+**[Observations using Our Streamlit App](#_mk43oc8o8wfn)**
 
-**[Future Work and Additional Sketches](#_f81h36pcbkwy) **
+**[Future Work and Additional Sketches](#_f81h36pcbkwy)**
 
 [Covid-19 Follow-up](#_h34ms4a1ok2a) 
 
@@ -48,9 +48,9 @@ Group Members: Alex Wei, Benito D Isaac, Yidan Ma
 
 [Collect Data With Detailed Stratification](#_1pjxlprggr9o) 
 
-**[Contributions](#_vlpfual29nmb) **
+**[Contributions](#_vlpfual29nmb)**
 
-**[Reference](#_itss75kbx4kc) **
+**[Reference](#_itss75kbx4kc)**
 
 ## Steps
 
