@@ -54,17 +54,15 @@ Group Members: Alex Wei, Benito D Isaac, Yidan Ma
 
 ## Steps
 
--
-## Tasks Clarification
+### Tasks Clarification
 
 Covid-19 is one of the most devastating disasters in human history, and now according to what Dr. Anthony Fauci said on Apr 27th, &#39;the United States is no longer in a pandemic phase&#39;, Covid-19 finally seems to come to an end. It&#39;s a great time to look back into Year 2020, 2021, and 2022 and use the power of data visualization tools to represent the status of Covid-19 in the past years, gain insights on what happened and hopefully get some takeaways from the pandemic. So, our team decided to explore the relationships between vaccination and the death/case rate of covid 19 in the country, continent, and worldwide level, as a way to gain more insights into the pandemics.
 
--
-## Dataset Searching and Understanding
+### Dataset Searching and Understanding
 
 We searched online about the Covid-19 dataset, and finally, find five datasets that are helpful in analyzing the status of covid-19 in the past two years: Covid-19 World Case Dataset, Covid-19 World Death Dataset, Covid-19 Vaccination Status Dataset, World population dataset, continent information dataset, and Geometric Map Dataset. These datasets are mainly compiled by the Jhon Hopkins University and, we have been able to retrieve the raw data from their repository.
 
-### Covid-19 World Case Dataset / Covid-19 World Death Dataset
+#### Covid-19 World Case Dataset / Covid-19 World Death Dataset
 
 Link to the dataset (Cases): ([https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse\_covid\_19\_data/csse\_covid\_19\_time\_series/time\_series\_covid19\_confirmed\_global.csv](https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv))
 
@@ -74,7 +72,7 @@ Link to the dataset (Deaths):
 
 Covid-19 World Cases Dataset and Covid-19 World Deaths dataset are from the same publication, where it contains variables: Province/State, Country/Region, Lat, Long, Dates from 1/20/2020 till today, The data was a time-series data containing 3342 collectors&#39; country-wide for Covid-19 Cases and deaths number.
 
-### Covid-19 Vaccination Status Dataset
+#### Covid-19 Vaccination Status Dataset
 
 Link to the dataset:
 
@@ -82,7 +80,7 @@ Link to the dataset:
 
 This dataset shows the vaccination status of every country in the world. It contains information about admin doses, the partially vaccinated population, and the fully vaccinated population of the country. This information could help us find out how vaccination helps in controlling Covid-19 pandemic.
 
-### Continent Information Dataset
+#### Continent Information Dataset
 
 Link to the dataset:
 
@@ -90,7 +88,7 @@ Link to the dataset:
 
 This dataset helps to convert the names of the countries to the continent they belong to, thus we could analyze Covid data on a continent level.
 
-### World Population Dataset
+#### World Population Dataset
 
 Link to the dataset:
 
@@ -98,11 +96,11 @@ Link to the dataset:
 
 World Population Dataset provides the population of countries worldwide. This dataset would be used when calculating cases/million people in order to compare the severity of pandemics between countries. It also contains the area of the country, which might be helpful in calculating the relationship between population density and the covid severity of the country. It also contains geometry shapefile information about countries to build the map visualization.
 
-## Dataset Preprocessing
+### Dataset Preprocessing
 
 The dataset we mentioned above are from different sources, thus their covariates, names of the country, and standard of the data might not be exactly the same. So, we need to clean the data and make an integrated dataset for future use.
 
-### **Joining Case/Death, vaccination status, continent information, and population datasets**
+#### **Joining Case/Death, vaccination status, continent information, and population datasets**
 
 Case and Death datasets contain dates as columns, which is not an ideal data storage format for processing. So we use the &#39;melt&#39; function in pandas to tidy the dataset and spread the date information from columns to rows. Since these two datasets are from the same resource, we don&#39;t need to do much to join them.
 
@@ -119,7 +117,7 @@ The population Status dataset is joined into the dataset using the same method a
 Table 1: Outcome Table of the Preprocessing Step
 
 
-## Construct Streamlit App
+### Construct Streamlit App
 
 The Streamlit app is constructed using packages &#39;altair&#39; and &#39;streamlit&#39;. There are mainly five parts of the app: Global Covid-19 Information Line Chart, Covid-19 Information for a Selected Country Line Chart, Detailed Vaccination Status Pie Chart, and Geometric Map.
 
@@ -128,34 +126,34 @@ Link to the app:
 ([https://share.streamlit.io/alexwei21/706\_final\_project/main/Final\_App.py](https://share.streamlit.io/alexwei21/706_final_project/main/Final_App.py))
 
 
-### SideBar
+#### SideBar
 
 We decided to create a sidebar to our streamlit app, since we think that users usually come to our app with their own questions that needed to be answered. We want to let them choose what kind of information they want to see instead of seeing all the information that might not be useful for them. So, we divided our app into three parts answering three questions using the sidebar.
 
 
-### Global Covid-19 Information Line Chart
+#### Global Covid-19 Information Line Chart
 
 The Global Covid-19 information line chart contains two graphs. One graph contains the information on daily deaths interacting with vaccination status all over the world, while the other graph contains the case number with vaccination status. Case and Death numbers are shown as the area in the graph, while the line represents the vaccination percentage around the world.
 
 
-### The rank of the Vaccination Rate of Selected Continent
+#### The rank of the Vaccination Rate of Selected Continent
 
 The rank of the vaccination rate of the selected continent shows the ultimate (till now) vaccination rate in all countries belonging to that continent in descending order.
 
 
-### Covid-19 Information for a Selected Country Line Chart
+#### Covid-19 Information for a Selected Country Line Chart
 
 Country-wide Covid-19 information line chart contains two graphs. One graph contains the information on daily death cooperates with vaccination status in the selected country, while the other graph contains the case number with vaccination status. Cases and Deaths numbers are shown as the area in the graph, while the line represents the vaccination percentage around the world.
 
 Users could choose the country by filtering continents and thus select a country that is interested in looking deep into the Covid data in that specific country.
 
 
-### Detailed Vaccination Status Pie Chart
+#### Detailed Vaccination Status Pie Chart
 
 Detailed Vaccination Status Pie chart enables the user to select a country with a specific month to see the detailed vaccination status of that country compared to the continent that country belongs to and also compare with the entire world in that specific month.
 
 
-### Global Map with Death and Case Data
+#### Global Map with Death and Case Data
 
 Using the global map as the containing of cases and death around the world could provide a comparison of deaths and cases statistics among countries within a month directly. Also when selected on one country, the country would be highlighted, helping the users to focus on the data of a single country. The tooltip shows the cases/deaths number, country name, and the selected month of the dataset.
 
@@ -196,22 +194,6 @@ When comparing the global Covid-19 information with continent data and country-s
 Taking Russia at 2021.8 as an example, we could see that that case number is relatively low in Russia compared to other countries in the world, however, the death number in Russia is one of the highest in the world. This indicates that case numbers and death numbers are not always proportional worldwide. The lethality of viruses keeps changing as time passes and virus mutations don&#39;t have to be the same around the world at the same time, leading to a difference in death/case ratio.
 
 ![](RackMultipart20220504-1-3zpcct_html_4788e972eefc4d15.png)
-
-## Future Work and Additional Sketches
-
-## **Covid-19 Follow-up**
-
-Although the United States and lots of other countries had announced &#39;no longer in pandemic,&#39; we should still focus on the mutations of Corona Viruses. As time passed on, if there&#39;s a new mutation of Covid-19 that is related to this pandemic, we could include the data and do the same representation again to see if there&#39;s anything interesting to be discovered.
-
-## **Comparison Between Different Diseases**
-
-Covid-19 was one of the most widely-influenced pandemics in the past decades, but there are also other pandemics in the past that could be researched and compared with this pandemic, to see if there is certain pattern of the pandemic that we could discover in order to prevent future pandemics. Here is a brief sketch about how we could do it.
-
-![](RackMultipart20220504-1-3zpcct_html_58009da84a4c3f13.jpg)
-
-## **Collect Data With Detailed Stratification**
-
-We could collect more detailed data about Covid-19, for example, death and cases for people under different ages, having different comorbidities, etc. Knowing Covid-19&#39;s different influence on different groups of people helps us know more about the virus.
 
 ## Contributions
 
