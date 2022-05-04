@@ -44,7 +44,7 @@ subset = df
 
 global_subset = df
 
-st.write(global_subset)
+# st.write(global_subset)
 
 global_daily_death = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Deaths']]
 global_daily_case = global_subset.groupby(['Date']).sum().reset_index()[['Date','Daily_Cases']]
@@ -241,8 +241,12 @@ donut2 = alt.Chart(vac_subset).mark_arc(innerRadius=50, outerRadius=90).encode(
     width = 500
 )
 
-
 st.altair_chart(donut2)
 st.altair_chart(donut3)
 st.altair_chart(donut1)
 
+def load_geo_data():
+    
+    df = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
+
+    return df
