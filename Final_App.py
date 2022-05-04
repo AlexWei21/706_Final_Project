@@ -245,6 +245,9 @@ st.altair_chart(donut2)
 st.altair_chart(donut3)
 st.altair_chart(donut1)
 
+
+st.write("## World Map of Country Average Daily Cases and Deaths at Selected Time")
+
 def load_geo_data():
     
     geo_data = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/89525c718663df6c8bf7f1d48bf695d58d697107/Geometry_Data.csv')
@@ -310,5 +313,6 @@ world_maps = alt.vconcat(background + chart_case, background + chart_death
 ).resolve_scale(
     color='independent'
 )
+
 
 st.altair_chart(world_maps)
