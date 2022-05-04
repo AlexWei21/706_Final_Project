@@ -35,7 +35,6 @@ def load_data():
 
 
 df = load_data()
-#country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/country_codes.csv', dtype = {'conuntry-code': str}) #
 
 # merge country codes
 subset = df
@@ -247,6 +246,70 @@ st.altair_chart(donut1)
 
 def load_geo_data():
     
-    df = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/6f129af67cfa5d50a5cb7ced94095d3639e14fda/Covid_19_Full_Data.csv')
+    geo_data = pd.read_csv('https://raw.githubusercontent.com/AlexWei21/706_Final_Project/89525c718663df6c8bf7f1d48bf695d58d697107/Geometry_Data.csv')
 
-    return df
+    return geo_data
+
+geo_data = load_geo_data()
+
+from vega_datasets import data
+
+source = alt.topo_feature(data.world_110m.url, 'countries')
+
+
+world_map_df = subset[(subset['Year']==year) & (subset['Month']==month)].groupby(['Country', 'country-code'])['Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'].mean().reset_index()
+
+# a gray map using as the visualization background
+background = alt.Chart(source
+).mark_geoshape(
+    fill='#aaa',
+    stroke='white'
+).properties(
+    width=650,
+    height=350
+).project('naturalEarth1')
+
+selector = alt.selection_single(
+    empty='all'
+    )
+
+case_scale = alt.Scale(domain=[world_map_df['Daily_Cases'].min(), world_map_df['Daily_Cases'].max()])
+case_color = alt.Color(field='Daily_Cases', type="quantitative", scale=case_scale)
+chart_case = alt.Chart(source,
+    ).properties( 
+        width=650, height=350, title=f'World Average Daily Cases in {year}.{month} '
+        ).project('naturalEarth1').add_selection(
+            selector).transform_lookup(
+        lookup="id",
+        from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
+        ).mark_geoshape().encode(
+            color = case_color,
+            tooltip = [
+                alt.Tooltip("Country:N", title="Country"),
+                alt.Tooltip("Daily_Cases:Q", title="Average Daily Cases"),
+                alt.Tooltip("Vaccinated_Percentage:Q", title="Vaccination Percentage"),
+            ]
+            ).transform_filter(selector)
+
+
+death_scale = alt.Scale(domain=[world_map_df['Daily_Deaths'].min(), world_map_df['Daily_Deaths'].max()])
+death_color = alt.Color(field='Daily_Deaths', type="quantitative", scale = death_scale)
+chart_death = alt.Chart(source,
+    ).properties( 
+        width=650, height=350, title=f'World Average Daily Deaths in {year}.{month} '
+        ).project('naturalEarth1').add_selection(
+            selector).transform_lookup(
+        lookup="id",
+        from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
+        ).mark_geoshape().encode(
+            color= death_color,
+            tooltip = ['Country:N', alt.Tooltip("Daily_Deaths:Q", title="Average Daily Deaths"), "Vaccinated_Percentage:Q"]
+            ).transform_filter(selector
+            )
+
+world_maps = alt.vconcat(background + chart_case, background + chart_death
+).resolve_scale(
+    color='independent'
+)
+
+st.altair_chart(world_maps)
