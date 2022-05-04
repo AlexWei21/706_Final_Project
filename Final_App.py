@@ -261,7 +261,7 @@ world_map_df = geo_data[(geo_data['Year']==year) & (geo_data['Month']==month)].g
 background = alt.Chart(source
 ).mark_geoshape(
     fill='#aaa',
-    stroke='white'
+    stroke='black'
 ).properties(
     width=650,
     height=350
@@ -280,7 +280,7 @@ chart_case = alt.Chart(source,
             selector).transform_lookup(
         lookup="id",
         from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
-        ).mark_geoshape().encode(
+        ).mark_geoshape(stroke='black').encode(
             color = case_color,
             tooltip = [
                 alt.Tooltip("Country:N", title="Country"),
@@ -299,7 +299,7 @@ chart_death = alt.Chart(source,
             selector).transform_lookup(
         lookup="id",
         from_=alt.LookupData(world_map_df, "country-code", ['Country','Daily_Deaths', 'Daily_Cases', 'Vaccinated_Percentage'])
-        ).mark_geoshape().encode(
+        ).mark_geoshape(stroke='black').encode(
             color= death_color,
             tooltip = ['Country:N', alt.Tooltip("Daily_Deaths:Q", title="Average Daily Deaths"), "Vaccinated_Percentage:Q"]
             ).transform_filter(selector
